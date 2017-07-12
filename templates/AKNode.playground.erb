@@ -1,0 +1,84 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
+//:
+//: ## <%= au_name %>
+//: ### Add description
+import XCPlayground
+import AudioKit
+
+let bundle = NSBundle.mainBundle()
+let file = bundle.pathForResource("mixloop", ofType: "wav")
+var player = AKAudioPlayer(file!)
+player.looping = true
+
+var <%= au_name.uncapitalize %> = AK<%= au_name %>(player)
+
+//: Set the parameters here
+<% parameters.each do |parameter| -%>
+<%= au_name.uncapitalize %>.<%= parameter[:variable] %>  = <%= parameter[:default] %>
+<% end -%>
+
+AudioKit.output = <%= au_name.uncapitalize %>
+AudioKit.start()
+
+//: User Interface Set up
+
+class PlaygroundView: AKPlaygroundView {
+
+    //: UI Elements we'll need to be able to access
+<% parameters.each do |parameter| -%>
+    var <%= parameter[:variable] %>Label: Label?
+<% end -%>
+
+    override func setup() {
+        addTitle("<%= au_name.humanize %>")
+
+        addLabel("Audio Player")
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
+
+        addLabel("<%= au_name.humanize %> Parameters")
+
+        addButton("Process", action: "process")
+        addButton("Bypass", action: "bypass")
+
+<% parameters.each do |parameter| -%>
+        <%= parameter[:variable] %>Label = addLabel("<%= parameter[:variable].humanize %>: \(<%= au_name.uncapitalize %>.<%= parameter[:variable] %>) <%= parameter[:type] %>")
+        addSlider("set<%= parameter[:variable] %>:", value: <%= au_name.uncapitalize %>.<%= parameter[:variable] %>, minimum: <%= parameter[:min] %>, maximum: <%= parameter[:max] %>)
+
+<% end -%>
+    }
+
+    //: Handle UI Events
+
+    func start() {
+        player.play()
+    }
+
+    func stop() {
+        player.stop()
+    }
+
+    func process() {
+        <%= au_name.uncapitalize %>.start()
+    }
+
+    func bypass() {
+        <%= au_name.uncapitalize %>.bypass()
+    }
+<% parameters.each do |parameter| -%>
+    func set<%= parameter[:variable] %>(slider: Slider) {
+        <%= au_name.uncapitalize %>.<%= parameter[:variable] %> = Double(slider.value)
+        let <%= parameter[:variable] %> = String(format: "%0.1f", <%= au_name.uncapitalize %>.<%= parameter[:variable] %>)
+        <%= parameter[:variable] %>Label!.text = "<%= parameter[:variable] %>: \(<%= parameter[:variable] %>) <%= parameter[:type] %>"
+    }
+
+<% end -%>
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000 ));
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

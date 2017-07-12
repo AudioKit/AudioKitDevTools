@@ -1,0 +1,42 @@
+installation-directory: "../AudioKit/Operations/FFT/"
+
+sp-module: mincer
+
+node: AKVocoder
+
+four-letter-code: minc
+
+summary: Phase-locked vocoder
+
+one-word-description: vocoder
+
+description:
+  Mincer is a phase-locked vocoder. It has the ability to play back an audio
+  file loaded into an ftable like a sampler would. Unlike a typical sampler, mincer allows
+  time and pitch to be controlled separately.
+
+
+tables:
+- ft: {
+  ak-variable: ft,
+  comment: "ftable containing an audio file.",
+  default:
+}
+
+parameters:
+- time: {
+  ak-variable: time,
+  comment: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
+  default: 0
+}
+- amp: {
+  ak-variable: amp,
+  comment: "Amplitude.",
+  default: 1
+}
+- pitch: {
+  ak-variable: pitch,
+  comment: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
+  default: 1
+}
+

@@ -1,0 +1,66 @@
+
+installation-directory: "Signal\ Generators/Physical\ Models/"
+
+sp-module: bar
+
+node: AKMetalBarStrike
+
+summary: Physical model approximating the sound of a struck metal bar.
+
+four-letter-code:
+
+one-word-description: strike
+
+description:
+  Audio output is a tone similar to a struck metal bar, using a physical model developed from solving the partial differential equation.
+  There are controls over the boundary conditions as well as the bar characteristics.
+
+parameters:
+- T30: {
+  ak-variable: decayTime,
+  comment: "30db decay time (in seconds).",
+  default: 3
+}
+- bcL: {
+  ak-variable: leftBoundaryCondition,
+  comment: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
+  default: 1
+}
+- bcR: {
+  ak-variable: rightBoundaryCondition,
+  comment: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
+  default: 1
+}
+- scan: {
+  ak-variable: scan,
+  comment: "SPeed of scanning the output location.",
+  default: 0.25
+}
+- pos: {
+  ak-variable: pos,
+  comment: "Position along bar that strike occurs.",
+  default: 0.2
+}
+- vel: {
+  ak-variable: vel,
+  comment: "Normalized strike velocity",
+  default: 500
+}
+- wid: {
+  ak-variable: wid,
+  comment: "Spatial width of strike.",
+  default: 0.05
+}
+
+constants:
+- iK: {
+  ak-variable: iK ,
+  comment: "Dimensionless stiffness parameter",
+  default: 3
+}
+- ib: {
+  ak-variable: ib ,
+  comment: "High frequency loss parameter. Keep this small",
+  default: 0.001
+}
+

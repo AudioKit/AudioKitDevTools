@@ -1,0 +1,25 @@
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    open dynamic var rampTime: Double = AKSettings.rampTime {
+        willSet {
+            internalAU?.rampTime = rampTime
+        }
+    }
+
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    /// <%= data["comment"] %>
+    open dynamic var <%= data["ak-variable"] %>: Double = <%= data["default"] %> {
+        willSet {
+            if <%= data["ak-variable"] %> != newValue {
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        <%= data["ak-variable"] %>Parameter?.setValue(Float(newValue), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.<%= data["ak-variable"] %> = Float(newValue)
+                }
+            }
+        }
+    }
+<% end %>
+<% end -%>

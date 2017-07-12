@@ -1,0 +1,51 @@
+installation-directory: "Effects/Filters/Auto Wah/"
+
+sp-module: autowah
+
+node: AKAutoWah
+
+akalias: autoWah
+
+four-letter-code: awah
+
+summary: Automatic wah pedal
+
+one-word-description: autoWah
+
+description: An automatic wah effect, ported from Guitarix via Faust.
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- wah: {
+  ak-variable: wah,
+  comment: "Wah Amount",
+  au-name: "Wah Amount",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: 0.0,
+  maximum: 1.0
+}
+- mix: {
+  ak-variable: mix,
+  comment: "Dry/Wet Mix",
+  au-name: "Dry/Wet Mix",
+  au-unit: Percent,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1.0
+}
+- level: {
+  ak-variable: amplitude,
+  comment: "Overall level",
+  au-name: "Overall level",
+  au-unit: Generic,
+  default: 0.1,
+  minimum: 0.0,
+  maximum: 1.0
+}
+

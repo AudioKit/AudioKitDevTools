@@ -1,0 +1,12 @@
+        _Self.register()
+
+        super.init()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+
+<% if inputs.count > 0 -%>
+            input?.addConnectionPoint(self!)
+<% end -%>
+        }

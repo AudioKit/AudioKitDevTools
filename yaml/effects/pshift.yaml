@@ -1,0 +1,49 @@
+installation-directory: "Effects/Pitch Shifter"
+
+sp-module: pshift
+
+node: AKPitchShifter
+
+four-letter-code: pshf
+
+summary: Time-domain pitch shifter.
+
+one-word-description: pitchshifter
+
+description: Faust-based pitch shfiter
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- shift: {
+  ak-variable: shift,
+  comment: "Pitch shift (in semitones)",
+  au-name: "Pitch shift (in semitones)",
+  au-unit: Semitones,
+  default: 0,
+  minimum: -24.0,
+  maximum: 24.0
+}
+- window: {
+  ak-variable: windowSize,
+  comment: "Window size (in samples)",
+  au-name: "Window size (in samples)",
+  au-unit: Hertz,
+  default: 1024,
+  minimum: 0.0,
+  maximum: 10000.0
+}
+- xfade: {
+  ak-variable: crossfade,
+  comment: "Crossfade (in samples)",
+  au-name: "Crossfade (in samples)",
+  au-unit: Hertz,
+  default: 512,
+  minimum: 0.0,
+  maximum: 10000.0
+}
+

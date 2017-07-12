@@ -1,0 +1,57 @@
+installation-directory: "Effects/Dynamics/Dynamic\ Range\ Compressor/"
+
+sp-module: compressor
+
+node: AKDynamicRangeCompressor
+
+four-letter-code: cpsr
+
+summary: Compressor
+
+one-word-description: compressor
+
+description: Dynamic range compressor from Faust
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+parameters:
+- ratio: {
+  ak-variable: ratio,
+  comment: "Ratio to compress with, a value > 1 will compress",
+  au-name: "Ratio to compress with, a value > 1 will compress",
+  au-unit: Hertz,
+  default: 1,
+  minimum: 0.01,
+  maximum: 100.0
+}
+- thresh: {
+  ak-variable: threshold,
+  comment: "Threshold (in dB) 0 = max",
+  au-name: "Threshold (in dB) 0 = max",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -100.0,
+  maximum: 0.0
+}
+- atk: {
+  ak-variable: attackTime,
+  comment: "Attack time",
+  au-name: "Attack time",
+  au-unit: Seconds,
+  default: 0.1,
+  minimum: 0.0,
+  maximum: 1.0
+}
+- rel: {
+  ak-variable: releaseTime,
+  comment: "Release time",
+  au-name: "Release time",
+  au-unit: Seconds,
+  default: 0.1,
+  minimum: 0.0,
+  maximum: 1.0
+}
+

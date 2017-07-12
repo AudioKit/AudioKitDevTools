@@ -1,0 +1,91 @@
+installation-directory: "Generators/Physical Models/Metal\ Bar/"
+
+sp-module: bar
+
+node: AKMetalBar
+
+four-letter-code: mbar
+
+summary: Physical model approximating the sound of a struck metal bar
+
+one-word-description: Bar
+
+description: ""
+
+parameters:
+- bcL: {
+  ak-variable: leftBoundaryCondition,
+  comment: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
+  au-name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
+  au-unit: Hertz,
+  default: 1,
+  minimum: 1,
+  maximum: 3
+}
+- bcR: {
+  ak-variable: rightBoundaryCondition,
+  comment: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
+  au-name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
+  au-unit: Hertz,
+  default: 1,
+  minimum: 1,
+  maximum: 3
+}
+- T30: {
+  ak-variable: decayDuration,
+  comment: "30db decay time (in seconds).",
+  au-name: "30db decay time (in seconds).",
+  au-unit: Hertz,
+  default: 3,
+  minimum: 0,
+  maximum: 10
+}
+- scan: {
+  ak-variable: scanSpeed,
+  comment: "Speed of scanning the output location.",
+  au-name: "Speed of scanning the output location.",
+  au-unit: Hertz,
+  default: 0.25,
+  minimum: 0,
+  maximum: 100
+}
+- pos: {
+  ak-variable: position,
+  comment: "Position along bar that strike occurs.",
+  au-name: "Position along bar that strike occurs.",
+  au-unit: Generic,
+  default: 0.2,
+  minimum: 0,
+  maximum: 1
+}
+- vel: {
+  ak-variable: strikeVelocity,
+  comment: "Normalized strike velocity",
+  au-name: "Normalized strike velocity",
+  au-unit: Generic,
+  default: 500,
+  minimum: 0,
+  maximum: 1000
+}
+- wid: {
+  ak-variable: strikeWidth,
+  comment: "Spatial width of strike.",
+  au-name: "Spatial width of strike.",
+  au-unit: Generic,
+  default: 0.05,
+  minimum: 0,
+  maximum: 1
+}
+
+constants:
+- iK: {
+  ak-variable: stiffness,
+  comment: "Dimensionless stiffness parameter",
+  default: 3
+}
+- ib: {
+  ak-variable: highFrequencyDamping,
+  comment: "High-frequency loss parameter. Keep this small",
+  default: 0.001
+}
+

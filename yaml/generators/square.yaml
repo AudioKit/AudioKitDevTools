@@ -1,0 +1,67 @@
+installation-directory: "Generators/Oscillators/Square Wave/"
+
+sp-module: blsquare
+
+node: AKSquareWaveOscillator
+
+four-letter-code: sqro
+
+summary: Band-limited square oscillator
+
+one-word-description: oscillator
+akalias: squareWave
+description:
+  This is a bandlimited square oscillator ported from the "square" function from the Faust
+  programming language.
+
+type: generator
+
+parameters:
+- freq: {
+  ak-variable: frequency,
+  comment: "In cycles per second, or Hz.",
+  au-name: "Frequency (Hz)",
+  au-unit: Hertz,
+  default: 440,
+  minimum: 0.0,
+  maximum: 20000.0
+}
+- amp: {
+  ak-variable: amplitude,
+  comment: "Output amplitude",
+  au-name: "Amplitude",
+  au-unit: Hertz,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 10.0
+}
+
+- width: {
+  ak-variable: pulseWidth,
+  comment: "Duty cycle width (range 0-1).",
+  au-name: "Pulse Width",
+  au-unit: Generic,
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 1.0
+}
+
+- detuneOffset: {
+    ak-variable: detuningOffset,
+    comment: "Frequency offset in Hz.",
+    au-name: "Frequency offset (Hz)",
+    au-unit: Hertz,
+    default: 0,
+    minimum: -1000.0,
+    maximum: 1000.0
+}
+
+- detuneScale: {
+    ak-variable: detuningMultiplier,
+    comment: "Frequency detuning multiplier",
+    au-name: "Frequency detuning multiplier",
+    au-unit: Generic,
+    default: 1,
+    minimum: 0.9,
+    maximum: 1.11
+}

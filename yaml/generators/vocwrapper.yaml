@@ -1,0 +1,66 @@
+installation-directory: "/Generators/Physical Models/Vocal Tract/"
+
+sp-module: vocwrapper
+
+node: AKVocalTract
+
+four-letter-code: vocw
+
+summary: Physical model of the vocal tract glottal pulse wave
+
+one-word-description: vocal tract
+
+description:
+  Based on the Pink Trombone algorithm by Neil Thapen, this implements a physical
+  model of the vocal tract glottal pulse wave. The tract model is based on the
+  classic Kelly-Lochbaum
+  segmented cylindrical 1d waveguide model, and the glottal pulse wave is a
+  LF glottal pulse model.
+
+parameters:
+- freq: {
+  ak-variable: frequency,
+  comment: "Glottal frequency.",
+  au-name: "Glottal frequency.",
+  au-unit: Hertz,
+  default: 160.0,
+  minimum: 0.0,
+  maximum: 22050.0
+}
+- pos: {
+  ak-variable: tonguePosition,
+  comment: "Tongue position (0-1)",
+  au-name: "Tongue position (0-1)",
+  au-unit: Generic,
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 1.0
+}
+- diam: {
+  ak-variable: tongueDiameter,
+  comment: "Tongue diameter (0-1)",
+  au-name: "Tongue diameter (0-1)",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1.0
+}
+- tenseness: {
+  ak-variable: tenseness,
+  comment: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
+  au-name: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
+  au-unit: Generic,
+  default: 0.6,
+  minimum: 0.0,
+  maximum: 1.0
+}
+- nasal: {
+  ak-variable: nasality,
+  comment: "Sets the velum size. Larger values of this creates more nasally sounds.",
+  au-name: "Sets the velum size. Larger values of this creates more nasally sounds.",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: 0.0,
+  maximum: 1.0
+}
+

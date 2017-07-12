@@ -1,0 +1,84 @@
+installation-directory: "Generators/Oscillators/Morphing Oscillator/"
+
+sp-module: oscmorph
+
+node: AKMorphingOscillator
+
+four-letter-code: morf
+
+summary: Wavetable morphing oscillator
+
+one-word-description: Morpher
+
+description:
+  This is an oscillator with linear interpolation that is capable of morphing
+  between an arbitrary number of wavetables.
+
+
+tables:
+- tbl: {
+  ak-variable: waveformArray,
+  comment: "An array of tables to read from. Note: the size of these tables must be a power of 2 (and the same size as well).",
+}
+
+parameters:
+- freq: {
+  ak-variable: frequency,
+  comment: "Frequency (in Hz)",
+  au-name: "Frequency (in Hz)",
+  au-unit: Hertz,
+  default: 440,
+  minimum: 0.0,
+  maximum: 22050.0
+}
+- amp: {
+  ak-variable: amplitude,
+  comment: "Amplitude (typically a value between 0 and 1).",
+  au-name: "Amplitude (typically a value between 0 and 1).",
+  au-unit: Hertz,
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 1.0
+}
+- wtpos: {
+  ak-variable: index,
+  comment: "Index of the wavetable to use (fractional are okay).",
+  au-name: "Index of the wavetable to use (fractional are okay).",
+  au-unit: Hertz,
+  default: 0.0,
+  minimum: 0.0,
+  maximum: 1000.0
+}
+
+- detuneOffset: {
+    ak-variable: detuningOffset,
+    comment: "Frequency offset in Hz.",
+    au-name: "Frequency offset (Hz)",
+    au-unit: Hertz,
+    default: 0,
+    minimum: -1000.0,
+    maximum: 1000.0
+}
+
+- detuneScale: {
+    ak-variable: detuningMultiplier,
+    comment: "Frequency detuning multiplier",
+    au-name: "Frequency detuning multiplier",
+    au-unit: Generic,
+    default: 1,
+    minimum: 0.9,
+    maximum: 1.11
+}
+
+constants:
+- nft: {
+  ak-variable: waveformCount,
+  comment: "Number of waveforms.",
+  default: 2
+}
+- phase: {
+  ak-variable: phase,
+  comment: "Initial phase of waveform, expects a value 0-1",
+  default: 0
+}
+

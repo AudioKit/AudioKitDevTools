@@ -1,0 +1,41 @@
+installation-directory: "Analysis/Frequency Tracker/"
+
+sp-module: ptrack
+
+node: AKFrequencyTracker
+
+four-letter-code: ptrk
+
+summary: Track the pitch (and amplitude) of a signal.
+
+one-word-description: Pitch-tracker
+
+description: This is based on an algorithm originally created by Miller Puckette.
+
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+constants:
+- ihopsize: {
+  ak-variable: hopSize,
+  comment: "Hop size.",
+  au-name: "Hop Size",
+  au-unit: Generic,
+  default: 512,
+  minimum: 128,
+  maximum: 4096
+}
+- ipeaks: {
+  ak-variable: peakCount ,
+  comment: "Number of peaks.",
+  au-name: "Peak count",
+  au-unit: Generic,
+  default: 20,
+  minimum: 1,
+  maximum: 100
+}
+

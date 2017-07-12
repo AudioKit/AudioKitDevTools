@@ -1,0 +1,113 @@
+installation-directory: "Effects/Reverb/Zita\ Reverb"
+
+sp-module: zitarev
+
+node: AKZitaReverb
+
+four-letter-code: zita
+
+summary: 8 FDN stereo zitareverb algorithm, imported from Faust.
+
+one-word-description: reverb
+
+description: 8 FDN stereo zitareverb algorithm, imported from Faust.
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- in_delay: {
+  ak-variable: delay,
+  comment: "Delay in ms before reverberation begins.",
+  au-name: "Delay in ms before reverberation begins.",
+  au-unit: Generic,
+  default: 60.0,
+  minimum: 0.0,
+  maximum: 200.0
+}
+- lf_x: {
+  ak-variable: crossoverFrequency,
+  comment: "Crossover frequency separating low and middle frequencies (Hz).",
+  au-name: "Crossover frequency separating low and middle frequencies (Hz).",
+  au-unit: Hertz,
+  default: 200.0,
+  minimum: 10.0,
+  maximum: 1000.0
+}
+- rt60_low: {
+  ak-variable: lowReleaseTime,
+  comment: "Time (in seconds) to decay 60db in low-frequency band.",
+  au-name: "Time (in seconds) to decay 60db in low-frequency band.",
+  au-unit: Seconds,
+  default: 3.0,
+  minimum: 0.0,
+  maximum: 10.0
+}
+- rt60_mid: {
+  ak-variable: midReleaseTime,
+  comment: "Time (in seconds) to decay 60db in mid-frequency band.",
+  au-name: "Time (in seconds) to decay 60db in mid-frequency band.",
+  au-unit: Seconds,
+  default: 2.0,
+  minimum: 0.0,
+  maximum: 10.0
+}
+- hf_damping: {
+  ak-variable: dampingFrequency,
+  comment: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
+  au-name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
+  au-unit: Hertz,
+  default: 6000.0,
+  minimum: 10.0,
+  maximum: 22050.0
+}
+- eq1_freq: {
+  ak-variable: equalizerFrequency1,
+  comment: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
+  au-name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
+  au-unit: Hertz,
+  default: 315.0,
+  minimum: 10.0,
+  maximum: 1000.0
+}
+- eq1_level: {
+  ak-variable: equalizerLevel1,
+  comment: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
+  au-name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -100.0,
+  maximum: 10.0
+}
+- eq2_freq: {
+  ak-variable: equalizerFrequency2,
+  comment: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
+  au-name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
+  au-unit: Hertz,
+  default: 1500.0,
+  minimum: 10.0,
+  maximum: 22050.0
+}
+- eq2_level: {
+  ak-variable: equalizerLevel2,
+  comment: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
+  au-name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -100.0,
+  maximum: 10.0
+}
+- mix: {
+  ak-variable: dryWetMix,
+  comment: "0 = all dry, 1 = all wet",
+  au-name: "0 = all dry, 1 = all wet",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1.0
+}
+
+

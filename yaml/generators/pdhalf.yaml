@@ -1,0 +1,32 @@
+installation-directory: "Generators/Oscillators/PhaseDistortionOscillator"
+
+sp-module: pdhalf
+
+node: AKPhaseDistortionOscillator
+
+akalias: phaseDistortionOscillator
+
+four-letter-code: pdhf
+
+summary: phase distortion oscillator
+
+one-word-description: oscillator
+
+description: Casio-style phase distortion with "pivot point" on the X axis
+This module is designed to emulate the classic phase distortion synthesis technique.
+From the mid 90's. The technique reads the first and second halves of the ftbl
+at different rates in order to warp the waveform. For example, pdhalf can
+smoothly transition a sinewave into something approximating a sawtooth wave.
+
+
+parameters:
+- amount: {
+  ak-variable: phaseDistortion,
+  comment: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
+  au-name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
+  au-unit: Generic,
+  default: 0,
+  minimum: -1,
+  maximum: 1
+}
+

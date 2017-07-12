@@ -1,0 +1,54 @@
+installation-directory: "Effects/Vocoder/"
+
+sp-module: vocoder
+
+node: AKVocoder
+
+four-letter-code: vcdr
+
+summary:
+
+one-word-description: vocoder
+
+description: 16-band channel vocoder
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Source signal (also known as carrier)."
+}
+- excite: {
+  ak-variable: excitationSignal,
+  comment: "Input audio signal."
+}
+
+
+parameters:
+- atk: {
+  ak-variable: attackTime,
+  comment: "Attack time (seconds)",
+  au-name: "Attack time (seconds)",
+  au-unit: Seconds,
+  default: 0.1,
+  minimum: 0.001,
+  maximum: 0.5
+}
+- rel: {
+  ak-variable: releaseTime,
+  comment: "Release time (seconds)",
+  au-name: "Release time (seconds)",
+  au-unit: Seconds,
+  default: 0.1,
+  minimum: 0.001,
+  maximum: 0.5
+}
+- bwratio: {
+  ak-variable: bandwidthRatio,
+  comment: "Coeffecient to adjust the bandwidth of each band",
+  au-name: "Coeffecient to adjust the bandwidth of each band",
+  au-unit: Generic,
+  default: 0.5,
+  minimum: 0.1,
+  maximum: 2
+}
+

@@ -1,0 +1,105 @@
+installation-directory: "Effects/Phaser/"
+
+sp-module: phaser
+
+node: AKPhaser
+
+four-letter-code: phas
+
+summary: Stereo Phaser
+
+one-word-description: phaser
+
+description: A stereo phaser
+  This is a stereo phaser, generated from Faust code taken from the Guitarix project.
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- MinNotch1Freq: {
+  ak-variable: notchMinimumFrequency,
+  comment: "Notch Minimum Frequency",
+  au-name: "Notch Minimum Frequency",
+  au-unit: Hertz,
+  default: 100,
+  minimum: 20,
+  maximum: 5000
+}
+- MaxNotch1Freq: {
+  ak-variable: notchMaximumFrequency,
+  comment: "Notch Maximum Frequency",
+  au-name: "Notch Maximum Frequency",
+  au-unit: Hertz,
+  default: 800,
+  minimum: 20,
+  maximum: 10000
+}
+- Notch_width: {
+  ak-variable: notchWidth,
+  comment: "Between 10 and 5000",
+  au-name: "Between 10 and 5000",
+  au-unit: Hertz,
+  default: 1000,
+  minimum: 10,
+  maximum: 5000
+}
+- NotchFreq: {
+  ak-variable: notchFrequency,
+  comment: "Between 1.1 and 4",
+  au-name: "Between 1.1 and 4",
+  au-unit: Hertz,
+  default: 1.5,
+  minimum: 1.1,
+  maximum: 4.0
+}
+- VibratoMode: {
+  ak-variable: vibratoMode,
+  comment: "Direct or Vibrato (default)",
+  au-name: "Direct or Vibrato (default)",
+  au-unit: Generic,
+  default: 1,
+  minimum: 0,
+  maximum: 1
+}
+- depth: {
+  ak-variable: depth,
+  comment: "Between 0 and 1",
+  au-name: "Between 0 and 1",
+  au-unit: Generic,
+  default: 1,
+  minimum: 0,
+  maximum: 1
+}
+- feedback_gain: {
+  ak-variable: feedback,
+  comment: "Between 0 and 1",
+  au-name: "Between 0 and 1",
+  au-unit: Generic,
+  default: 0,
+  minimum: 0,
+  maximum: 1
+}
+- invert: {
+  ak-variable: inverted,
+  comment: "1 or 0",
+  au-name: "1 or 0",
+  au-unit: Generic,
+  default: 0,
+  minimum: 0,
+  maximum: 1
+}
+
+- lfobpm: {
+  ak-variable: lfoBPM,
+  comment: "Between 24 and 360",
+  au-name: "Between 24 and 360",
+  au-unit: Generic,
+  default: 30,
+  minimum: 24,
+  maximum: 360
+}
+

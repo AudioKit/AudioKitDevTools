@@ -1,0 +1,17 @@
+        _Self.register()
+
+        super.init()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+
+<% tables.each do |table| -%>
+<% table.each do |sp_var, data| -%>
+            self.internalAU?.setup<%= data["ak-variable"].capitalize %>(Int32(<%= data["ak-variable"] %>.size))
+            for var i = 0; i < <%= data["ak-variable"] %>.size; i++ {
+                self.internalAU?.set<%= data["ak-variable"].capitalize %>Value(<%= data["ak-variable"] %>.values[i], atIndex: UInt32(i))
+            }
+<% end -%>
+<% end -%>
+        }

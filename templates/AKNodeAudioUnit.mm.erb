@@ -1,0 +1,42 @@
+<%= header_partial %>
+
+@implementation <%= node %>AudioUnit {
+    // C++ members need to be ivars; they would be copied on access if they were properties.
+    <%= node %>DSPKernel _kernel;
+    BufferedInputBus _inputBus;
+}
+@synthesize parameterTree = _parameterTree;
+
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+- (void)set<%= upper(data["ak-variable"]) %>:(float)<%= data["ak-variable"] %> {
+    _kernel.set<%= upper(data["ak-variable"]) %>(<%= data["ak-variable"] %>);
+}
+<% end -%>
+<% end -%>
+
+<% tables.each do |table| -%>
+<% table.each do |sp_var, data| -%>
+- (void)setup<%= upper(data["ak-variable"]) %>:(int)size {
+    _kernel.setup<%= upper(data["ak-variable"]) %>((uint32_t)size);
+}
+- (void)set<%= upper(data["ak-variable"]) %>Value:(float)value atIndex:(UInt32)index; {
+    _kernel.set<%= upper(data["ak-variable"]) %>Value(index, value);
+}
+<% end -%><% end -%>
+standardKernelPassthroughs()
+
+- (void)createParameters {
+
+    standardSetup(<%= node[2..-1] %>)
+
+<%= parameter_creation_partial %>
+
+    parameterTreeBlock(<%= node[2..-1] %>)
+}
+
+AUAudioUnitOverrides(<%= node[2..-1] %>);
+
+@end
+
+

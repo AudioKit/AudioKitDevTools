@@ -1,0 +1,38 @@
+installation-directory: "Effects/Envelopes/Tremolo/"
+
+sp-module: trem
+
+node: AKTremolo
+
+four-letter-code: trem
+
+summary:  Amplitude Tremolo
+
+one-word-description:  tremolo
+
+description:  Table-lookup tremolo with linear interpolation
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+tables:
+- tbl: {
+  ak-variable: waveform,
+  comment: "Shape of the tremolo. Note: the size of this table must be a power of 2.",
+  default: sine
+}
+
+parameters:
+- freq: {
+  ak-variable: frequency,
+  comment: "Frequency (Hz)",
+  au-name: "Frequency (Hz)",
+  au-unit: Hertz,
+  default: 10.0,
+  minimum: 0.0,
+  maximum: 100.0
+}
+
