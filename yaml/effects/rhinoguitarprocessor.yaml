@@ -1,0 +1,77 @@
+installation-directory: "Effects/GuitarProcessor/Rhino/"
+
+sp-module: rhino
+
+node: AKRhinoGuitarProcessor
+
+akalias: rhino
+
+summary: Rhino
+
+four-letter-code: dlrh
+
+one-word-description: Rhino head and cab simulator
+
+description: Guitar head and cab simulator.
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- preGain: {
+  ak-variable: preGain,
+  comment: "Determines the amount of gain applied to the signal before processing.",
+  au-name: "Pregain",
+  au-unit: Generic,
+  default: 5.0,
+  minimum: 0.0,
+  maximum: 10.0
+}
+- postGain: {
+  ak-variable: postGain,
+  comment: "Gain applied after processing.",
+  au-name: "Postgain",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -96.0,
+  maximum: 20.0
+}
+- lowGain: {
+  ak-variable: lowGain,
+  comment: "Amount of Low frequencies.",
+  au-name: "Low frequencies.",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -20.0,
+  maximum: 20.0
+}
+- midGain: {
+  ak-variable: midGain,
+  comment: "Amount of Middle frequencies.",
+  au-name: "Low frequencies.",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -20.0,
+  maximum: 20.0
+}
+- highGain: {
+  ak-variable: highGain,
+  comment: "Amount of High frequencies.",
+  au-name: "Low frequencies.",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -20.0,
+  maximum: 20.0
+}
+- distType: {
+  ak-variable: distType,
+  comment: "Distortion Type",
+  au-name: "Distortion Type",
+  au-unit: Generic,
+  default: 1,
+  minimum: 1,
+  maximum: 3
+}
