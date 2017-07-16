@@ -8,15 +8,11 @@
 <% end -%>
 <% end -%>
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-<% parameters.each_with_index do |sp_parameter, i| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-                <%= "} else " if i>0 %>if address == self?.<%= data["ak-variable"] %>Parameter?.address {
-                    self?.<%= data["ak-variable"] %> = Double(value)
-<% end -%>
-<% end -%>
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })

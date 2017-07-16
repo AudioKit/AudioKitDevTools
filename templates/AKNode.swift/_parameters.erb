@@ -1,7 +1,7 @@
     /// Ramp Time represents the speed at which parameters are allowed to change
     open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
-            internalAU?.rampTime = rampTime
+            internalAU?.rampTime = newValue
         }
     }
 
