@@ -1,3 +1,6 @@
+AudioKit Developer Tools
+===
+
 These developer tools are a series of scripts intended for developers of AudioKit, not developers who use AudioKit. It contains scripts that create the AudioKit documentation, web site materials, and templates for starting to create AudioKit nodes from scratch.
 
 This repository should be installed parallel to the AudioKit (and optionally, the AudioKit web site) repositories.  The scripts should be run from the terminal from the main directory, preceded with "./bin/".
