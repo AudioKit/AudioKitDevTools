@@ -1,4 +1,8 @@
-== Instructions for Creating a Soundpipe-powered AudioKit Node
+These developer tools are a series of scripts intended for developers of AudioKit, not developers who use AudioKit. It contains scripts that create the AudioKit documentation, web site materials, and templates for starting to create AudioKit nodes from scratch.
+
+This repository should be installed parallel to the AudioKit (and optionally, the AudioKit web site) repositories.  The scripts should be run from the terminal from the main directory, preceded with "./bin/".
+
+## Instructions for Creating a Soundpipe-powered AudioKit Node
 
 * Run `lua data2yaml.lua` to make a yaml file
 * Edit the yaml file to look like others
@@ -12,14 +16,6 @@
 * Copy over the soundpipe.h file (if not part of a shell script)
 * Commit the new files
 
-
-Here are some resources that we use to develop our coding choices and core philosophies:
-
-## Avoid code smell
-
-* [Code Smell in Swift](http://www.bartjacobs.com/five-code-smells-in-swift-and-objective-c/)
-* [Code Smell in Objective-C](http://qualitycoding.org/objective-c-code-smells/)
-* [Code Smell of the Preprocessor](http://qualitycoding.org/preprocessor/)
 
 ## Be aware of how to code for an open-source framework
 

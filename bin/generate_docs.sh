@@ -1,4 +1,5 @@
 #! /bin/bash
-jazzy --theme apple --source-directory ../AudioKit/iOS/
+jazzy --theme apple --source-directory ../AudioKit/AudioKit/iOS/
 
-open docs/index.html
+mv ../audiokit.github.io/docs ~/.Trash
+mv docs ../audiokit.github.io/

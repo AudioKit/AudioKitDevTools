@@ -13,7 +13,7 @@ end
 markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
 
 # Set up the output folder relative to the current directory and create it if necessary
-output_folder = "/Users/aure/Developer/audiokit.github.io/_includes/playgrounds/"
+output_folder = "../audiokit.github.io/_includes/playgrounds/"
 # FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 
 skippable_lines = ["//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)", "//: ---"]
@@ -30,7 +30,7 @@ index = "<ol>"
 playground_names = ["Analysis", "Basics", "Effects", "Filters", "Playback", "Synthesis"]
 
 playground_names.each do |playground_name|
-    page_folders = ["/Users/aure/Developer/AudioKit/Playgrounds/AudioKitPlaygrounds/Playgrounds/#{playground_name}.playground/Pages/*"]
+    page_folders = ["../AudioKit/Playgrounds/AudioKitPlaygrounds/Playgrounds/#{playground_name}.playground/Pages/*"]
 
     page_folders.each_with_index do |folder, i|
         index << "<h4>Playgrounds</h4><ol>"
