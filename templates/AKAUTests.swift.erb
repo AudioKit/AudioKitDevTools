@@ -1,0 +1,38 @@
+//
+//  AK<%= au_name %>Tests.swift
+//  AudioKitTestSuite
+//
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 AudioKit. All rights reserved.
+//
+
+import AudioKit
+import XCTest
+
+class AK<%= au_name %>Tests: AKTestCase {
+
+    func testDefault() {
+        let input = AKOscillator()
+        output = AK<%= au_name %>(input)
+        input.start()
+        AKTestMD5("")
+    }
+
+    func testParameters() {
+        let input = AKOscillator()
+        output = AK<%= au_name %>(input,
+<% parameters.each_with_index do |parameter, i| -%>
+<%= parameter[:variable] %>: <%= parameter[:min] %>-<%= parameter[:default] %>-<%= parameter[:max] %><%= ",\n" if i < parameters.count - 1 %><% end -%>)
+        input.start()
+        AKTestMD5("")
+    }
+
+<% parameters.each do |parameter| %>
+    func test<%= upper(parameter[:variable]) %>() {
+        let input = AKOscillator()
+        output = AK<%= au_name %>(input, <%= parameter[:variable] %>: <%= parameter[:min] %>-<%= parameter[:default] %>-<%= parameter[:max] %>)
+        input.start()
+        AKTestMD5("")
+    }
+<% end %>
+}

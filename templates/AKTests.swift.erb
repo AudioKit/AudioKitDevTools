@@ -2,12 +2,12 @@
 //  <%= node %>Tests.swift
 //  AudioKitTestSuite
 //
-//  Created by Aurelius Prochazka on 8/9/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+import AudioKit
 import XCTest
-@testable import AudioKit
 
 class <%= node %>Tests: AKTestCase {
 
@@ -17,4 +17,25 @@ class <%= node %>Tests: AKTestCase {
         input.start()
         AKTestMD5("")
     }
+
+    func testParameters() {
+        let input = AKOscillator()
+        output = <%= node %>(input,
+<% parameters.each_with_index do |sp_parameter, i| -%>
+<% sp_parameter.each do  |sp_var, data| -%><%= data["ak-variable"] %>: <%= data["minimum"] %>-<%= data["default"] %>-<%= data["maximum"] %><%= ",\n" if i < (parameters + constants).count - 1 %><% end -%>
+<% end -%>)
+        input.start()
+        AKTestMD5("")
+    }
+
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    func test<%= upper(data["ak-variable"]) %>() {
+        let input = AKOscillator()
+        output = <%= node %>(input, <%= data["ak-variable"] %>: <%= data["minimum"] %>-<%= data["default"] %>-<%= data["maximum"] %>)
+        input.start()
+        AKTestMD5("")
+    }
+<% end %>
+<% end -%>
 }

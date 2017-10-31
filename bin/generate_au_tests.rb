@@ -7,6 +7,10 @@ def new_partial(template, name)
     ERB.new(File.new("templates/#{template}/_#{name}.erb").read, nil, '-' ).result
 end
 
+def upper(str)
+    return str[0].upcase + str[1..-1]
+end
+
 class String
   def uncapitalize
     self[0, 1].downcase + self[1..-1]
@@ -70,20 +74,8 @@ end
 
 # output_folder = "../AudioKit/Common/Nodes/Effects/Distortion/AK#{au_name}/"
 parameter_docs_partial = new_partial("AKAUNode.swift", "parameter_docs")
-File.open("templates/AKAUNode.swift.erb") { |template|
+File.open("templates/AKAUTests.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
-    # File.open("#{output_folder}/AK#{au_name}.swift", 'w+') {|f| f.write(erb.result) }
     puts erb.result
 }
 
-# File.open("templates/AKNodeWindow.swift.erb") { |template|
-#     erb = ERB.new( template.read, nil, '-' )
-#     # File.open("../AudioKit/OSX/AudioKit/Playgrounds/Helpers/AK#{au_name}Window.swift", 'w+') {|f| f.write(erb.result) }
-#     # puts erb.result
-# }
-
-# File.open("templates/AKNode.playground.erb") { |template|
-#     erb = ERB.new( template.read, nil, '-' )
-#     File.open("output/AK#{au_name}.playground", 'w+') {|f| f.write(erb.result) }
-#     puts erb.result
-# }
