@@ -24,10 +24,10 @@ inputs:
 parameters:
 - del: {
   ak-variable: time,
-  comment: "Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.",
+  comment: "Delay time (in seconds) This value must not exceed the maximum delay time.",
   au-name: "Delay time (Seconds)",
   au-unit: Seconds,
-  default: 1,
+  default: 0,
   minimum: 0,
   maximum: 10
 }

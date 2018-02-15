@@ -75,6 +75,8 @@ $longest_parameter = ""
 	end
 end
 
+inputCount = 2
+
 au_type = "Generator"
 if input_count > 0 then
 	au_type = "Effect"
@@ -103,14 +105,48 @@ File.open("templates/AKGeneratorNode.swift.erb") { |template|
 	# puts erb.result
 }
 
+
+#########################
+# AKNodeAudioUnit.swift #
+#########################
+File.open("templates/AKNodeAudioUnit.swift.erb") { |template|
+	erb = ERB.new( template.read, nil, '-' )
+	File.open("#{output_folder}/#{node}AudioUnit.swift", 'w+') {|f| f.write(erb.result) }
+	# puts erb.result
+}
+#################
+# AKNodeDSP.hpp #
+#################
+File.open("templates/AKGeneratorNodeDSP.hpp.erb") { |template|
+	erb = ERB.new( template.read, nil, '-' )
+	File.open("#{output_folder}/#{node}DSP.hpp", 'w+') {|f| f.write(erb.result) }
+	# puts erb.result
+}
+
+# File.open("templates/AKNodeDSP.hpp.erb") { |template|
+# 	erb = ERB.new( template.read, nil, '-' )
+# 	File.open("#{output_folder}/#{node}DSP.hpp", 'w+') {|f| f.write(erb.result) }
+# 	# puts erb.result
+# }
+
+#################
+# AKNodeDSP.mm #
+#################
+File.open("templates/AKGeneratorNodeDSP.mm.erb") { |template|
+	erb = ERB.new( template.read, nil, '-' )
+	File.open("#{output_folder}/#{node}DSP.mm", 'w+') {|f| f.write(erb.result) }
+	# puts erb.result
+}
+
+
 #####################
 # AKNodeAudioUnit.h #
 #####################
-File.open("templates/AKNodeAudioUnit.h.erb") { |template|
-	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}AudioUnit.h", 'w+') {|f| f.write(erb.result) }
-	# puts erb.result
-}
+# File.open("templates/AKNodeAudioUnit.h.erb") { |template|
+# 	erb = ERB.new( template.read, nil, '-' )
+# 	File.open("#{output_folder}/#{node}AudioUnit.h", 'w+') {|f| f.write(erb.result) }
+# 	# puts erb.result
+# }
 
 ######################
 # AKNodeAudioUnit.mm #
@@ -118,20 +154,20 @@ File.open("templates/AKNodeAudioUnit.h.erb") { |template|
 header_partial             = new_partial("AKNodeAudioUnit.mm", "header")
 parameter_creation_partial = new_partial("AKNodeAudioUnit.mm", "parameter_creation")
 
-File.open("templates/AKNodeAudioUnit.mm.erb") { |template|
-	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}AudioUnit.mm", 'w+') {|f| f.write(erb.result) }
-	# puts erb.result
-}
+# File.open("templates/AKNodeAudioUnit.mm.erb") { |template|
+# 	erb = ERB.new( template.read, nil, '-' )
+# 	File.open("#{output_folder}/#{node}AudioUnit.mm", 'w+') {|f| f.write(erb.result) }
+# 	# puts erb.result
+# }
 
 #######################
 # AKNodeDSPKernel.hpp #
 #######################
-File.open("templates/AKNodeDSPKernel.hpp.erb") { |template|
-	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}DSPKernel.hpp", 'w+') {|f| f.write(erb.result) }
-	# puts erb.result
-}
+# File.open("templates/AKNodeDSPKernel.hpp.erb") { |template|
+# 	erb = ERB.new( template.read, nil, '-' )
+# 	File.open("#{output_folder}/#{node}DSPKernel.hpp", 'w+') {|f| f.write(erb.result) }
+# 	# puts erb.result
+# }
 
 ##########################
 # Preset Template Output #

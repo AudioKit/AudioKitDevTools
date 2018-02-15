@@ -1,4 +1,4 @@
-installation-directory: "Effects/Phaser/"
+installation-directory: "Effects/Modulation/Phaser/"
 
 sp-module: phaser
 
@@ -7,6 +7,8 @@ node: AKPhaser
 four-letter-code: phas
 
 summary: Stereo Phaser
+
+inputCount: 2
 
 one-word-description: phaser
 

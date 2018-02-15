@@ -1,0 +1,73 @@
+//
+//  <%= node %>AudioUnit.swift
+//  AudioKit
+//
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 20<%= Time.now.strftime('%y') %> AudioKit. All rights reserved.
+//
+
+import AVFoundation
+
+public class <%= node %>AudioUnit: AKGeneratorAudioUnitBase {
+
+    func setParameter(_ address: <%= node %>Parameter, value: Double) {
+        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+    }
+
+    func setParameterImmediately(_ address: <%= node %>Parameter, value: Double) {
+        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+    }
+
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    var <%= data["ak-variable"] %>: Double = <%= node %>.default<%= data["ak-variable"].camelcase %> {
+        didSet { setParameter(.<%= data["ak-variable"] %>, value: <%= data["ak-variable"] %>) }
+    }
+<% end %>
+<% end -%>
+    var rampTime: Double = 0.0 {
+        didSet { setParameter(.rampTime, value: rampTime) }
+    }
+
+    public override func initDSP(withSampleRate sampleRate: Double,
+                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+        return create<%= node[2..-1] %>DSP(Int32(count), sampleRate)
+    }
+
+    public override init(componentDescription: AudioComponentDescription,
+                  options: AudioComponentInstantiationOptions = []) throws {
+        try super.init(componentDescription: componentDescription, options: options)
+
+        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
+
+<% parameters.each_with_index do |sp_parameter, i| -%>
+<% sp_parameter.each do |sp_var, data| -%>
+        let <%= data["ak-variable"] %> = AUParameterTree.createParameter(
+            withIdentifier: "<%= data["ak-variable"] %>",
+            name: "<%= data["au-name"] %>",
+            address: AUParameterAddress(<%= i %>),
+            min: Float(<%= node %>.<%= data["ak-variable"] %>Range.lowerBound),
+            max: Float(<%= node %>.<%= data["ak-variable"] %>Range.upperBound),
+            unit: .<%= data["au-unit"].downcase %>,
+            unitName: nil,
+            flags: flags,
+            valueStrings: nil,
+            dependentParameters: nil
+        )
+<% end -%>
+<% end -%>        
+        setParameterTree(AUParameterTree.createTree(withChildren: [<% parameters.each_with_index do |sp_parameter, i| -%>
+<% sp_parameter.each do |sp_var, data| -%>
+<%= data["ak-variable"] %><%= ", " if i < parameters.count - 1 -%>
+<% end -%>
+<% end -%>]))
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+        <%= data["ak-variable"] %>.value = Float(<%= node %>.default<%= data["ak-variable"].camelcase %>)
+<% end -%>
+<% end -%>
+    }
+
+    public override var canProcessInPlace: Bool { get { return true; }}
+
+}

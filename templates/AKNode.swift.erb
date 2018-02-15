@@ -2,26 +2,37 @@
 
 /// <%= description %>
 ///
-open class <%= node %>: AKNode, AKToggleable, AKComponent {
+open class <%= node %>: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = <%= node %>AudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "<%= four_letter_code %>")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-<% (parameters + constants).each do |sp_parameter| -%>
+<% (parameters).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
     fileprivate var <%= data["ak-variable"] %>Parameter: AUParameter?
 <% end -%>
 <% end -%>
 
+<% (parameters).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    /// Lower and upper bounds for <%= data["ak-variable"].titlecase %>
+    public static let <%= data["ak-variable"] %>Range = <%= data["minimum"] %> ... <%= data["maximum"] %>
+<% end %>
+<% end -%>
+<% (parameters + constants).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    /// Initial value for <%= data["ak-variable"].titlecase %>
+    public static let default<%= data["ak-variable"].camelcase %> = <%= data["default"] %>
+<% end %>
+<% end -%>
 <%= parameters_partial -%>
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+    @objc open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -38,13 +49,14 @@ open class <%= node %>: AKNode, AKToggleable, AKComponent {
 <% end -%>
 <% end -%>
     ///
-    public init(
+    @objc public init(
 <% if inputs.count > 0 -%>
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
 <% end -%>
 <% (parameters + constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-        <%= data["ak-variable"] %>: Double = <%= data["default"] %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>) {
+        <%= data["ak-variable"] %>: Double = default<%= data["ak-variable"].camelcase %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
+        ) {
 
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
@@ -58,7 +70,7 @@ open class <%= node %>: AKNode, AKToggleable, AKComponent {
 
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-        internalAU?.<%= data["ak-variable"] %> = Float(<%= data["ak-variable"] %>)
+        internalAU?.setParameterImmediately(.<%= data["ak-variable"] %>, value: <%= data["ak-variable"] %>)
 <% end -%>
 <% end -%>
     }
@@ -74,12 +86,12 @@ open class <%= node %>: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

@@ -1,0 +1,17 @@
+//
+//  <%= node %>.mm
+//  AudioKit
+//
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 20<%= Time.now.strftime('%y') %> AudioKit. All rights reserved.
+//
+
+#import "<%= node %>DSP.hpp"
+
+// "Constructor" function for interop with Swift
+
+extern "C" void* create<%= node[2..-1] %>DSP(int nChannels, double sampleRate) {
+    <%= node %>DSP* dsp = new <%= node %>DSP();
+    dsp->init(nChannels, sampleRate);
+    return dsp;
+}

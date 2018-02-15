@@ -1,0 +1,62 @@
+installation-directory: "Effects/Modulation/Chorus"
+
+sp-module: chorus
+
+node: AKChorus
+
+summary: Chorus
+
+four-letter-code: chrs
+
+one-word-description: chorus
+
+akalias: chorus
+
+description:
+  Shane's Chorus
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- freq: {
+  ak-variable: frequency,
+  au-name: "Frequency (Hz)",
+  au-unit: Hertz,
+  comment: "Frequency. (in Hertz)",
+  default: 1.0,
+  minimum: 0.1,
+  maximum: 10.0
+}
+- depth: {
+  ak-variable: depth,
+  au-name: "Depth 0-1",
+  au-unit: Generic,
+  comment: "Depth",
+  default: 0.0,
+  minimum: 0.0,
+  maximum: 1.0
+}
+- feedback: {
+  ak-variable: feedback,
+  au-name: "Feedback 0-1",
+  au-unit: Generic,
+  comment: "Feedback",
+  default: 0.0,
+  minimum: 0.0,
+  maximum: 0.25
+}
+- dryWetMix: {
+  ak-variable: dryWetMix,
+  au-name: "Dry Wet Mix 0-1",
+  au-unit: Generic,
+  comment: "Dry Wet Mix",
+  default: 0.0,
+  minimum: 0.0,
+  maximum: 1.0
+}
+
+

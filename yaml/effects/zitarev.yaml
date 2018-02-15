@@ -6,6 +6,8 @@ node: AKZitaReverb
 
 four-letter-code: zita
 
+inputCount: 2
+
 summary: 8 FDN stereo zitareverb algorithm, imported from Faust.
 
 one-word-description: reverb
@@ -20,7 +22,7 @@ inputs:
 
 parameters:
 - in_delay: {
-  ak-variable: delay,
+  ak-variable: predelay,
   comment: "Delay in ms before reverberation begins.",
   au-name: "Delay in ms before reverberation begins.",
   au-unit: Generic,

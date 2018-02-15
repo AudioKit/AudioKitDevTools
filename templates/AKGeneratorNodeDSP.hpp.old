@@ -1,0 +1,162 @@
+//
+//  <%= node %>DSP.hpp
+//  AudioKit
+//
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 20<%= Time.now.strftime('%y') %> AudioKit. All rights reserved.
+//
+
+#pragma once
+
+#import <Foundation/Foundation.h>
+
+typedef NS_ENUM(int64_t, <%= node %>Parameter) {
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    <%= node %>Parameter<%= data["ak-variable"].upcase_first %>,
+<% end -%>
+<% end -%>    <%= node %>ParameterRampTime
+};
+
+#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+
+#ifndef __cplusplus
+
+void* create<%= node[2..-1] %>DSP(int nChannels, double sampleRate);
+
+#else
+
+#import "AKSoundpipeDSPBase.hpp"
+
+class <%= node %>DSP : public AKSoundpipeDSPBase {
+
+    sp_<%= sp_module %> *_<%= sp_module %>;
+<% if tables.count > 0 -%>
+    sp_ftbl *_ftbl;
+    UInt32 _ftbl_size = 4096;
+<% end -%>
+
+private:
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    AKLinearParameterRamp <%= data["ak-variable"] %>Ramp;
+<% end -%>
+<% end -%>
+
+public:
+    <%= node %>DSP() {
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+        <%= data["ak-variable"] %>Ramp.setTarget(<%= data["default"] %>, true);
+        <%= data["ak-variable"] %>Ramp.setDurationInSamples(10000);
+<% end -%>
+<% end -%>    }
+
+    /** Uses the ParameterAddress as a key */
+    void setParameter(uint64_t address, float value, bool immediate) override {
+        switch (address) {
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+            case <%= node %>Parameter<%= data["ak-variable"].upcase_first %>:
+                <%= data["ak-variable"] %>Ramp.setTarget(value, immediate);
+                break;
+<% end -%>
+<% end -%>            case <%= node %>ParameterRampTime:
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+                <%= data["ak-variable"] %>Ramp.setRampTime(value, _sampleRate);
+<% end -%>
+<% end -%>                break;
+        }
+    }
+
+    /** Uses the ParameterAddress as a key */
+    float getParameter(uint64_t address) override {
+        switch (address) {
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+            case <%= node %>Parameter<%= data["ak-variable"].upcase_first %>:
+                return <%= data["ak-variable"] %>Ramp.getTarget();
+<% end -%>
+<% end -%>
+            case <%= node %>ParameterRampTime:
+<% parameters.each_with_index do |sp_parameter, i| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+<% if i ==  0 -%>
+                return <%= data["ak-variable"] %>Ramp.getRampTime(_sampleRate);
+<% end -%>
+<% end -%>
+<% end -%>        }
+        return 0;
+    }
+
+    void init(int _channels, double _sampleRate) override {
+        AKSoundpipeDSPBase::init(_channels, _sampleRate);
+
+        sp_<%= sp_module %>_create(&_<%= sp_module %>);
+        sp_<%= sp_module %>_init(_sp, _<%= sp_module %>);
+<% (parameters + constant_parameters).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+        _<%= sp_module %>-><%= sp_var %> = <%= data["default"] %>;
+<% end -%>
+<% end -%>
+    }
+
+    void destroy() {
+        sp_<%= sp_module %>_destroy(&_<%= sp_module %>);
+        AKSoundpipeDSPBase::destroy();
+    }
+
+<% if tables.count > 0 -%>
+    void setupWaveform(uint32_t size) override {
+        _ftbl_size = size;
+        sp_ftbl_create(_sp, &_ftbl, _ftbl_size);
+    }
+
+    void setWaveformValue(uint32_t index, float value) override {
+        _ftbl->tbl[index] = value;
+    }
+<% end -%>
+
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
+
+            // do ramping every 8 samples
+            if ((frameOffset & 0x7) == 0) {
+<% (parameters + constant_parameters).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+                <%= data["ak-variable"] %>Ramp.advanceTo(_now + frameOffset);
+<% end -%>
+<% end -%>
+            }
+<% (parameters + constant_parameters).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+            float <%= data["ak-variable"] %> = <%= data["ak-variable"] %>Ramp.getValue();
+<% end -%>
+<% end -%>
+<% (parameters + constant_parameters).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+            _<%= sp_module %>-><%= sp_var %> = <%= data["ak-variable"] %>;
+<% end -%>
+<% end -%>
+
+            float temp = 0;
+            for (int channel = 0; channel < _nChannels; ++channel) {
+                float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+
+                if (_playing) {
+                    if (channel == 0) {
+                        sp_<%= sp_module %>_compute(_sp, _<%= sp_module %>, nil, &temp);
+                    }
+                    *out = temp;
+                } else {
+                    *out = 0.0;
+                }
+            }
+        }
+    }
+};
+
+#endif

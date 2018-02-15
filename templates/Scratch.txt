@@ -1,0 +1,34 @@
+        float temp = 0;
+        for (int channel = 0; channel < _nChannels; ++channel) {
+            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+
+            if (_playing) {
+                if (channel == 0) {
+                    sp_<%= sp_module %>_compute(_sp, _<%= sp_module %>, nil, &temp);
+                }
+                *out = temp;
+            } else {
+                *out = 0.0;
+            }
+        }
+
+
+
+
+        float *tmpin[2];
+        float *tmpout[2];
+        for (int channel = 0; channel < _nChannels; ++channel) {
+            float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            
+            if (channel < 2) {
+                tmpin[channel] = in;
+                tmpout[channel] = out;
+            }
+            if (!_playing) {
+                *out = *in;
+            }
+        }
+        if (_playing) {
+            sp_revsc_compute(_sp, _private->_revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+        }

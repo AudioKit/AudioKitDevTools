@@ -36,3 +36,12 @@ parameters:
   maximum: 100.0
 }
 
+- depth: {
+  ak-variable: depth,
+  comment: "Depth",
+  au-name: "Depth",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1.0
+}

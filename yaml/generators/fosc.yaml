@@ -31,7 +31,7 @@ parameters:
 	comment: "In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.",
   au-name: "Base Frequency (Hz)",
   au-unit: Hertz,
-  default: 440,
+  default: 440.0,
   minimum: 0.0,
   maximum: 20000.0
 }
@@ -49,7 +49,7 @@ parameters:
 	comment: "This multiplied by the baseFrequency gives the modulating frequency.",
   au-name: "Modulating Multiplier",
   au-unit: Generic,
-  default: 1,
+  default: 1.0,
   minimum: 0.0,
   maximum: 1000.0
 }
@@ -58,7 +58,7 @@ parameters:
 	comment: "This multiplied by the modulating frequency gives the modulation amplitude.",
   au-name: "Modulation Index",
   au-unit: Generic,
-  default: 1,
+  default: 1.0,
   minimum: 0.0,
   maximum: 1000.0
 }
@@ -67,7 +67,7 @@ parameters:
 	comment: "Output Amplitude.",
   au-name: "Amplitude",
   au-unit: Generic,
-  default: 1,
+  default: 1.0,
   minimum: 0.0,
   maximum: 10.0
 }

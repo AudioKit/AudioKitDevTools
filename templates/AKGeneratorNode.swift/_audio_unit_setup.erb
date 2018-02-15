@@ -2,15 +2,17 @@
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 <% tables.each do |table| -%>
 <% table.each do |sp_var, data| -%>
-            self.internalAU?.setup<%= data["ak-variable"].capitalize %>(Int32(<%= data["ak-variable"] %>.size))
-            for var i = 0; i < <%= data["ak-variable"] %>.size; i++ {
-                self.internalAU?.set<%= data["ak-variable"].capitalize %>Value(<%= data["ak-variable"] %>.values[i], atIndex: UInt32(i))
+            strongSelf.internalAU?.setup<%= data["ak-variable"].capitalize %>(Int32(waveform.count))
+            for (i, sample) in <%= data["ak-variable"] %>.enumerated() {
+                strongSelf.internalAU?.set<%= data["ak-variable"].capitalize %>Value(sample, at: UInt32(i))
             }
 <% end -%>
 <% end -%>

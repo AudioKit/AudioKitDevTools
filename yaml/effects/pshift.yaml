@@ -23,7 +23,7 @@ parameters:
   ak-variable: shift,
   comment: "Pitch shift (in semitones)",
   au-name: "Pitch shift (in semitones)",
-  au-unit: Semitones,
+  au-unit: RelativeSemiTones,
   default: 0,
   minimum: -24.0,
   maximum: 24.0

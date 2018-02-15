@@ -40,7 +40,7 @@ parameters:
   maximum: 10.0
 }
 - shape1: {
-  ak-variable: postiveShapeParameter,
+  ak-variable: positiveShapeParameter,
   comment: "Shape of the positive part of the signal. A value of 0 gets a flat clip.",
   au-name: "Positive Shape Parameter",
   au-unit: Generic,

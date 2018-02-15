@@ -1,6 +1,6 @@
 installation-directory: "Mixing/Panner/"
 
-sp-module: pan2
+sp-module: panst
 
 node: AKPanner
 
@@ -8,7 +8,9 @@ akalias: pan
 
 four-letter-code: pan2
 
-summary:
+inputCount: 2
+
+summary: Stereo Panner
 
 one-word-description: panner
 

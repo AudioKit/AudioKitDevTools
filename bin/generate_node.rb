@@ -43,6 +43,7 @@ one_word_desc       = o["one-word-description"]
 description         = wrap(o["description"])
 summary             = o["summary"]
 inputs	            = o["inputs"].to_a
+inputCount          = o["inputCount"]
 tables              = o["tables"].to_a
 parameters          = o["parameters"].to_a
 constants           = o["constants"].to_a
@@ -103,33 +104,31 @@ File.open("templates/AKNode.swift.erb") { |template|
 	# puts erb.result
 }
 
-#####################
-# AKNodeAudioUnit.h #
-#####################
-File.open("templates/AKNodeAudioUnit.h.erb") { |template|
+#########################
+# AKNodeAudioUnit.swift #
+#########################
+File.open("templates/AKNodeAudioUnit.swift.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}AudioUnit.h", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}AudioUnit.swift", 'w+') {|f| f.write(erb.result) }
 	# puts erb.result
 }
 
-######################
-# AKNodeAudioUnit.mm #
-######################
-header_partial             = new_partial("AKNodeAudioUnit.mm", "header")
-parameter_creation_partial = new_partial("AKNodeAudioUnit.mm", "parameter_creation")
-
-File.open("templates/AKNodeAudioUnit.mm.erb") { |template|
+#################
+# AKNodeDSP.hpp #
+#################
+File.open("templates/AKNodeDSP.hpp.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}AudioUnit.mm", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}DSP.hpp", 'w+') {|f| f.write(erb.result) }
 	# puts erb.result
 }
 
-#######################
-# AKNodeDSPKernel.hpp #
-#######################
-File.open("templates/AKNodeDSPKernel.hpp.erb") { |template|
+################
+# AKNodeDSP.mm #
+################
+
+File.open("templates/AKNodeDSP.mm.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}DSPKernel.hpp", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}DSP.mm", 'w+') {|f| f.write(erb.result) }
 	# puts erb.result
 }
 
