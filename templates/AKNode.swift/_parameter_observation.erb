@@ -1,22 +1,5 @@
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
         <%= data["ak-variable"] %>Parameter = tree["<%= data["ak-variable"] %>"]
 <% end -%>
 <% end -%>
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })

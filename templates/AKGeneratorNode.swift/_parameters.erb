@@ -1,7 +1,7 @@
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
@@ -10,14 +10,10 @@
     /// <%= data["comment"] %>
     @objc open dynamic var <%= data["ak-variable"] %>: Double = default<%= data["ak-variable"].camelcase %> {
         willSet {
-            if <%= data["ak-variable"] %> == newValue {
+            guard <%= data["ak-variable"] %> != newValue else { return }
+            if internalAU?.isSetUp == true {
+                <%= data["ak-variable"] %>Parameter?.value = AUValue(newValue)
                 return
-            }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    <%= data["ak-variable"] %>Parameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
             }
             internalAU?.setParameterImmediately(.<%= data["ak-variable"] %>, value: newValue)
         }

@@ -10,7 +10,6 @@ open class <%= node %>: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
 <% tables.each do |table| -%>
 <% table.each do |sp_var, data| -%>

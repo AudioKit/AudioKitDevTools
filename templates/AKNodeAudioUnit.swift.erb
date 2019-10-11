@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-public class <%= node %>AudioUnit: AKGeneratorAudioUnitBase {
+public class <%= node %>AudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: <%= node %>Parameter, value: Double) {
         setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
@@ -25,12 +25,12 @@ public class <%= node %>AudioUnit: AKGeneratorAudioUnitBase {
     }
 <% end %>
 <% end -%>
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return create<%= node[2..-1] %>DSP(Int32(count), sampleRate)
     }
 
@@ -45,7 +45,7 @@ public class <%= node %>AudioUnit: AKGeneratorAudioUnitBase {
         let <%= data["ak-variable"] %> = AUParameterTree.createParameter(
             withIdentifier: "<%= data["ak-variable"] %>",
             name: "<%= data["au-name"] %>",
-            address: AUParameterAddress(<%= i %>),
+            address: <%= node %>Parameter.<%= data["ak-variable"] %>.rawValue,
             min: Float(<%= node %>.<%= data["ak-variable"] %>Range.lowerBound),
             max: Float(<%= node %>.<%= data["ak-variable"] %>Range.upperBound),
             unit: .<%= data["au-unit"].downcase %>,
@@ -68,6 +68,6 @@ public class <%= node %>AudioUnit: AKGeneratorAudioUnitBase {
 <% end -%>
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true }
 
 }
