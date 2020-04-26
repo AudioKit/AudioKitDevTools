@@ -1,30 +1,27 @@
-//
-//  <%= node %>DSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 20<%= Time.now.strftime('%y') %> AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "<%= node %>DSP.hpp"
-#import "AKLinearParameterRamp.hpp"
-
-extern "C" void* create<%= node[2..-1] %>DSP(int nChannels, double sampleRate) {
-    <%= node %>DSP* dsp = new <%= node %>DSP();
-    dsp->init(nChannels, sampleRate);
-    return dsp;
-}
-
-struct <%= node %>DSP::_Internal {
-<% if inputCount == 2 -%>
-    sp_<%= sp_module %> *_<%= sp_module %>;
-<% else -%>
-    sp_<%= sp_module %> *_<%= sp_module %>0;
-    sp_<%= sp_module %> *_<%= sp_module %>1;
+<% if parameters.count > 0 -%>
+#include "AKLinearParameterRamp.hpp"
 <% end -%>
 <% if tables.count > 0 -%>
-    sp_ftbl *_ftbl;
-    UInt32 _ftbl_size = 4096;
+#include <vector>
+<% end -%>
+
+extern "C" AKDSPRef create<%= node[2..-1] %>DSP() {
+    return new <%= node %>DSP();
+}
+
+struct <%= node %>DSP::InternalData {
+<% if inputCount == 2 -%>
+    sp_<%= sp_module %> *<%= sp_module %>;
+<% else -%>
+    sp_<%= sp_module %> *<%= sp_module %>0;
+    sp_<%= sp_module %> *<%= sp_module %>1;
+<% end -%>
+<% if tables.count > 0 -%>
+    sp_ftbl *ftbl;
+    std::vector<float> waveform;
 <% end -%>
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
@@ -33,101 +30,63 @@ struct <%= node %>DSP::_Internal {
 <% end -%>
 };
 
-<%= node %>DSP::<%= node %>DSP() : _private(new _Internal) {
+<%= node %>DSP::<%= node %>DSP() : data(new InternalData) {
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-    _private-><%= data["ak-variable"] %>Ramp.setTarget(default<%= data["ak-variable"].camelcase %>, true);
-    _private-><%= data["ak-variable"] %>Ramp.setDurationInSamples(defaultRampTimeSamples);
+    parameters[<%= node %>Parameter<%= data["ak-variable"].upcase_first %>] = &data-><%= data["ak-variable"] %>Ramp;
 <% end -%>
 <% end -%>
 }
-
-// Uses the ParameterAddress as a key
-void <%= node %>DSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-<% parameters.each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-        case <%= node %>Parameter<%= data["ak-variable"].upcase_first %>:
-            _private-><%= data["ak-variable"] %>Ramp.setTarget(clamp(value, <%= data["ak-variable"] %>LowerBound, <%= data["ak-variable"] %>UpperBound), immediate);
-            break;
-<% end -%>
-<% end -%>
-        case <%= node %>ParameterRampTime:
-<% parameters.each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-            _private-><%= data["ak-variable"] %>Ramp.setRampTime(value, _sampleRate);
-<% end -%>
-<% end -%>
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float <%= node %>DSP::getParameter(uint64_t address) {
-    switch (address) {
-<% parameters.each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-        case <%= node %>Parameter<%= data["ak-variable"].upcase_first %>:
-            return _private-><%= data["ak-variable"] %>Ramp.getTarget();
-<% end -%>
-<% end -%>
-        case <%= node %>ParameterRampTime:
-<% parameters.each_with_index do |sp_parameter, i| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-<% if i ==  0 -%>
-            return _private-><%= data["ak-variable"] %>Ramp.getRampTime(_sampleRate);
-<% end -%>
-<% end -%>
-<% end -%>
-    }
-    return 0;
-}
-
-void <%= node %>DSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
-<% if inputCount == 2 -%>
-    sp_<%= sp_module %>_create(&_private->_<%= sp_module %>);
-    sp_<%= sp_module %>_init(_sp, _private->_<%= sp_module %>);
-<% else -%>
-    sp_<%= sp_module %>_create(&_private->_<%= sp_module %>0);
-    sp_<%= sp_module %>_init(_sp, _private->_<%= sp_module %>0);
-    sp_<%= sp_module %>_create(&_private->_<%= sp_module %>1);
-    sp_<%= sp_module %>_init(_sp, _private->_<%= sp_module %>1);
-<% end -%>
-<% (parameters + constant_parameters).each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-<% if inputCount == 2 -%>
-    _private->_<%= sp_module %>-><%= sp_var %> = default<%= data["ak-variable"].camelcase %>;
-<% else -%>
-    _private->_<%= sp_module %>0-><%= sp_var %> = default<%= data["ak-variable"].camelcase %>;
-    _private->_<%= sp_module %>1-><%= sp_var %> = default<%= data["ak-variable"].camelcase %>;
-<% end -%>
-<% end -%>
-<% end -%>
-}
-
-void <%= node %>DSP::destroy() {
-<% if inputCount == 2 -%>
-    sp_<%= sp_module %>_destroy(&_private->_<%= sp_module %>);
-<% else -%>
-    sp_<%= sp_module %>_destroy(&_private->_<%= sp_module %>0);
-    sp_<%= sp_module %>_destroy(&_private->_<%= sp_module %>1);
-<% end -%>
-    AKSoundpipeDSPBase::destroy();
-}
-
 <% if tables.count > 0 -%>
-void <%= node %>DSP::setupWaveform(uint32_t size) {
-    _private->_ftbl_size = size;
-    sp_ftbl_create(_sp, &_private->_ftbl, _private->_ftbl_size);
-}
 
-void <%= node %>DSP::setWaveformValue(uint32_t index, float value) {
-    _private->_ftbl->tbl[index] = value;
+void <%= node %>DSP::setWavetable(const float* table, size_t length, int index) {
+    data->waveform = std::vector<float>(table, table + length);
+    reset();
 }
 <% end -%>
-void <%= node %>DSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
+void <%= node %>DSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+<% if tables.count > 0 -%>
+    sp_ftbl_create(sp, &data->ftbl, data->waveform.size());
+    std::copy(data->waveform.cbegin(), data->waveform.cend(), data->ftbl->tbl);
+<% end -%>
+<% if inputCount == 2 -%>
+    sp_<%= sp_module %>_create(&data-><%= sp_module %>);
+    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>);
+<% else -%>
+    sp_<%= sp_module %>_create(&data-><%= sp_module %>0);
+    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>0);
+    sp_<%= sp_module %>_create(&data-><%= sp_module %>1);
+    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>1);
+<% end -%>
+}
+
+void <%= node %>DSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
+<% if inputCount == 2 -%>
+    sp_<%= sp_module %>_destroy(&data-><%= sp_module %>);
+<% else -%>
+    sp_<%= sp_module %>_destroy(&data-><%= sp_module %>0);
+    sp_<%= sp_module %>_destroy(&data-><%= sp_module %>1);
+<% end -%>
+<% if tables.count > 0 -%>
+    sp_ftbl_destroy(&data->ftbl);
+<% end -%>
+}
+
+void <%= node %>DSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+<% if inputCount == 2 -%>
+    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>);
+<% else -%>
+    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>0);
+    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>1);
+<% end -%>
+}
+
+void <%= node %>DSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
@@ -135,7 +94,7 @@ void <%= node %>DSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
         if ((frameOffset & 0x7) == 0) {
 <% (parameters + constant_parameters).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-            _private-><%= data["ak-variable"] %>Ramp.advanceTo(_now + frameOffset);
+            data-><%= data["ak-variable"] %>Ramp.advanceTo(now + frameOffset);
 <% end -%>
 <% end -%>
         }
@@ -143,21 +102,21 @@ void <%= node %>DSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
 <% (parameters + constant_parameters).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 <% if inputCount == 2 -%>
-        _private->_<%= sp_module %>-><%= sp_var %> = _private-><%= data["ak-variable"] %>Ramp.getValue();
+        data-><%= sp_module %>-><%= sp_var %> = data-><%= data["ak-variable"] %>Ramp.getValue();
 <% else -%>
-        _private->_<%= sp_module %>0-><%= sp_var %> = _private-><%= data["ak-variable"] %>Ramp.getValue();
-        _private->_<%= sp_module %>1-><%= sp_var %> = _private-><%= data["ak-variable"] %>Ramp.getValue();
+        data-><%= sp_module %>0-><%= sp_var %> = data-><%= data["ak-variable"] %>Ramp.getValue();
+        data-><%= sp_module %>1-><%= sp_var %> = data-><%= data["ak-variable"] %>Ramp.getValue();
 <% end -%>
 <% end -%>
 <% end -%>
 
         float temp = 0;
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
+            if (isStarted) {
                 if (channel == 0) {
-                    sp_<%= sp_module %>_compute(_sp, _private->_<%= sp_module %>, nil, &temp);
+                    sp_<%= sp_module %>_compute(sp, data-><%= sp_module %>, nil, &temp);
                 }
                 *out = temp;
             } else {
