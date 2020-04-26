@@ -1,23 +1,11 @@
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
-
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
     /// <%= data["comment"] %>
-    @objc open dynamic var <%= data["ak-variable"] %>: Double = default<%= data["ak-variable"].camelcase %> {
+    open var <%= data["ak-variable"] %>: Double = default<%= data["ak-variable"].camelcase %> {
         willSet {
-            if <%= data["ak-variable"] %> == newValue {
-                return
-            }
-            if internalAU?.isSetUp == false {
-                <%= data["ak-variable"] %>Parameter?.value = AUValue(newValue)
-                return
-            }
-            internalAU?.setParameterImmediately(.<%= data["ak-variable"] %>, value: newValue)
+            let clampedValue = <%= node %>.<%= data["ak-variable"] %>Range.clamp(newValue)
+            guard <%= data["ak-variable"] %> != clampedValue else { return }
+            internalAU?.<%= data["ak-variable"] %>.value = AUValue(clampedValue)
         }
     }
 <% end %>
