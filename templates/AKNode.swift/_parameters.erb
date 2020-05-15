@@ -1,7 +1,7 @@
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
     /// <%= data["comment"] %>
-    open var <%= data["ak-variable"] %>: Double = default<%= data["ak-variable"].camelcase %> {
+    @objc open var <%= data["ak-variable"] %>: Double = default<%= data["ak-variable"].camelcase %> {
         willSet {
             let clampedValue = <%= node %>.<%= data["ak-variable"] %>Range.clamp(newValue)
             guard <%= data["ak-variable"] %> != clampedValue else { return }
