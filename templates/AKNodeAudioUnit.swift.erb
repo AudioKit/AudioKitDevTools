@@ -2,11 +2,17 @@
 
 import AVFoundation
 
-public class <%= node %>AudioUnit: AKAudioUnitNew {
+public class <%= node %>AudioUnit: AKAudioUnitBase {
 
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-    private(set) var <%= data["ak-variable"] %>: AUParameter!
+    let <%= data["ak-variable"] %> = AUParameter(
+        identifier: "<%= data["ak-variable"] %>",
+        name: "<%= data["au-name"] %>",
+        address: <%= node %>Parameter.<%= data["ak-variable"] %>.rawValue,
+        range: <%= node %>.<%= data["ak-variable"] %>Range,
+        unit: .<%= data["au-unit"].downcase %>,
+        flags: .default)
 <% end %>
 <% end -%>
     public override func createDSP() -> AKDSPRef {
@@ -16,29 +22,11 @@ public class <%= node %>AudioUnit: AKAudioUnitNew {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-<% parameters.each_with_index do |sp_parameter, i| -%>
-<% sp_parameter.each do |sp_var, data| -%>
-        <%= data["ak-variable"] %> = AUParameter(
-            identifier: "<%= data["ak-variable"] %>",
-            name: "<%= data["au-name"] %>",
-            address: <%= node %>Parameter.<%= data["ak-variable"] %>.rawValue,
-            range: <%= node %>.<%= data["ak-variable"] %>Range,
-            unit: .<%= data["au-unit"].downcase %>,
-            flags: .default)
-<% end -%>
-<% end -%>
-
+        
         parameterTree = AUParameterTree.createTree(withChildren: [<% parameters.each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do |sp_var, data| -%>
 <%= data["ak-variable"] %><%= ", " if i < parameters.count - 1 -%>
 <% end -%>
 <% end -%>])
-
-<% parameters.each_with_index do |sp_parameter, i| -%>
-<% sp_parameter.each do |sp_var, data| -%>
-        <%= data["ak-variable"] %>.value = AUValue(<%= node %>.default<%= data["ak-variable"].camelcase %>)
-<% end -%>
-<% end -%>
     }
 }

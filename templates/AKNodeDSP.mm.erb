@@ -2,7 +2,7 @@
 
 #include "<%= node %>DSP.hpp"
 <% if parameters.count > 0 -%>
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 <% end -%>
 
 extern "C" AKDSPRef create<%= node[2..-1] %>DSP() {
@@ -22,7 +22,7 @@ struct <%= node %>DSP::InternalData {
 <% end -%>
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-    AKLinearParameterRamp <%= data["ak-variable"] %>Ramp;
+    ParameterRamper <%= data["ak-variable"] %>Ramp;
 <% end -%>
 <% end -%>
 };
@@ -84,24 +84,14 @@ void <%= node %>DSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-<% if parameters.count > 0 -%>
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-<% (parameters + constant_parameters).each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-            data-><%= data["ak-variable"] %>Ramp.advanceTo(now + frameOffset);
-<% end -%>
-<% end -%>
-        }
-
 <% (parameters + constant_parameters).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 <% if inputCount == 2 -%>
-        data-><%= sp_module %>-><%= sp_var %> = data-><%= data["ak-variable"] %>Ramp.getValue();
+        data-><%= sp_module %>-><%= sp_var %> = data-><%= data["ak-variable"] %>Ramp.getAndStep();
 <% else -%>
-        data-><%= sp_module %>0-><%= sp_var %> = data-><%= data["ak-variable"] %>Ramp.getValue();
-        data-><%= sp_module %>1-><%= sp_var %> = data-><%= data["ak-variable"] %>Ramp.getValue();
-<% end -%>
+        float <%= data["ak-variable"] %> = data-><%= data["ak-variable"] %>Ramp.getAndStep();
+        data-><%= sp_module %>0-><%= sp_var %> = <%= data["ak-variable"] %>;
+        data-><%= sp_module %>1-><%= sp_var %> = <%= data["ak-variable"] %>;
 <% end -%>
 <% end -%>
 
@@ -109,8 +99,8 @@ void <%= node %>DSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
