@@ -1,14 +1,17 @@
-        super.init()
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        super.init(avAudioNode: AVAudioNode())
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+<% if parameters.count > 0 -%>
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+<% end -%>
 <% (tables+parameters).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-            self.<%= data["ak-variable"] %> = <%= data["ak-variable"] %>
+            self.<%= data["ak-variable"] %>.associate(with: self.internalAU, value: <%= data["ak-variable"] %>)
 <% end -%>
 <% end -%>
 <% if tables.count > 0 -%>
