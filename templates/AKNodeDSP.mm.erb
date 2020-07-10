@@ -5,11 +5,10 @@
 #include "ParameterRamper.hpp"
 <% end -%>
 
-extern "C" AKDSPRef create<%= node[2..-1] %>DSP() {
-    return new <%= node %>DSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct <%= node %>DSP::InternalData {
+class <%= node %>DSP : public AKSoundpipeDSPBase {
+private:
 <% if inputCount == 2 -%>
     sp_<%= sp_module %> *<%= sp_module %>;
 <% else -%>
@@ -25,102 +24,107 @@ struct <%= node %>DSP::InternalData {
     ParameterRamper <%= data["ak-variable"] %>Ramp;
 <% end -%>
 <% end -%>
-};
 
-<%= node %>DSP::<%= node %>DSP() : data(new InternalData) {
+public:
+    <%= node %>DSP() {
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-    parameters[<%= node %>Parameter<%= data["ak-variable"].upcase_first %>] = &data-><%= data["ak-variable"] %>Ramp;
+        parameters[<%= node %>Parameter<%= data["ak-variable"].upcase_first %>] = &<%= data["ak-variable"] %>Ramp;
 <% end -%>
 <% end -%>
-}
+    }
 
-void <%= node %>DSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
 <% if inputCount == 2 -%>
-    sp_<%= sp_module %>_create(&data-><%= sp_module %>);
-    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>);
+        sp_<%= sp_module %>_create(&<%= sp_module %>);
+        sp_<%= sp_module %>_init(sp, <%= sp_module %>);
 <% else -%>
-    sp_<%= sp_module %>_create(&data-><%= sp_module %>0);
-    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>0);
-    sp_<%= sp_module %>_create(&data-><%= sp_module %>1);
-    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>1);
+        sp_<%= sp_module %>_create(&<%= sp_module %>0);
+        sp_<%= sp_module %>_init(sp, <%= sp_module %>0);
+        sp_<%= sp_module %>_create(&<%= sp_module %>1);
+        sp_<%= sp_module %>_init(sp, <%= sp_module %>1);
 <% end -%>
-}
+    }
 
-void <%= node %>DSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
 <% if inputCount == 2 -%>
-    sp_<%= sp_module %>_destroy(&data-><%= sp_module %>);
+        sp_<%= sp_module %>_destroy(&<%= sp_module %>);
 <% else -%>
-    sp_<%= sp_module %>_destroy(&data-><%= sp_module %>0);
-    sp_<%= sp_module %>_destroy(&data-><%= sp_module %>1);
+        sp_<%= sp_module %>_destroy(&<%= sp_module %>0);
+        sp_<%= sp_module %>_destroy(&<%= sp_module %>1);
 <% end -%>
-}
+    }
 
-void <%= node %>DSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
 <% if inputCount == 2 -%>
-    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>);
+        sp_<%= sp_module %>_init(sp, <%= sp_module %>);
 <% else -%>
-    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>0);
-    sp_<%= sp_module %>_init(sp, data-><%= sp_module %>1);
+        sp_<%= sp_module %>_init(sp, <%= sp_module %>0);
+        sp_<%= sp_module %>_init(sp, <%= sp_module %>1);
 <% end -%>
-}
+    }
 
 <% if tables.count > 0 -%>
-void <%= node %>DSP::setupWaveform(uint32_t size) {
-    _ftbl_size = size;
-    sp_ftbl_create(sp, &_ftbl, _ftbl_size);
-}
+    void setupWaveform(uint32_t size) {
+        _ftbl_size = size;
+        sp_ftbl_create(sp, &_ftbl, _ftbl_size);
+    }
 
-void <%= node %>DSP::setWaveformValue(uint32_t index, float value) {
-    _ftbl->tbl[index] = value;
-}
+    void setWaveformValue(uint32_t index, float value) {
+        _ftbl->tbl[index] = value;
+    }
 <% end -%>
-void <%= node %>DSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
 <% (parameters + constant_parameters).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 <% if inputCount == 2 -%>
-        data-><%= sp_module %>-><%= sp_var %> = data-><%= data["ak-variable"] %>Ramp.getAndStep();
+            <%= sp_module %>-><%= sp_var %> = <%= data["ak-variable"] %>Ramp.getAndStep();
 <% else -%>
-        float <%= data["ak-variable"] %> = data-><%= data["ak-variable"] %>Ramp.getAndStep();
-        data-><%= sp_module %>0-><%= sp_var %> = <%= data["ak-variable"] %>;
-        data-><%= sp_module %>1-><%= sp_var %> = <%= data["ak-variable"] %>;
+            float <%= data["ak-variable"] %> = <%= data["ak-variable"] %>Ramp.getAndStep();
+            <%= sp_module %>0-><%= sp_var %> = <%= data["ak-variable"] %>;
+            <%= sp_module %>1-><%= sp_var %> = <%= data["ak-variable"] %>;
 <% end -%>
 <% end -%>
 
 <% end -%>
-        float *tmpin[2];
-        float *tmpout[2];
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-            if (channel < 2) {
-                tmpin[channel] = in;
-                tmpout[channel] = out;
-            }
-            if (!isStarted) {
-                *out = *in;
-                continue;
-            }
+            float *tmpin[2];
+            float *tmpout[2];
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                if (channel < 2) {
+                    tmpin[channel] = in;
+                    tmpout[channel] = out;
+                }
+                if (!isStarted) {
+                    *out = *in;
+                    continue;
+                }
 <% if inputCount == 2 -%>            
-        }
-        if (isStarted) {
-            sp_<%= sp_module %>_compute(sp, data-><%= sp_module %>, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
-        }
-<% else %>
-            if (channel == 0) {
-                sp_<%= sp_module %>_compute(sp, data-><%= sp_module %>0, in, out);
-            } else {
-                sp_<%= sp_module %>_compute(sp, data-><%= sp_module %>1, in, out);
             }
-        }
+            if (isStarted) {
+                sp_<%= sp_module %>_compute(sp, <%= sp_module %>, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            }
+<% else %>
+                if (channel == 0) {
+                    sp_<%= sp_module %>_compute(sp, <%= sp_module %>0, in, out);
+                } else {
+                    sp_<%= sp_module %>_compute(sp, <%= sp_module %>1, in, out);
+                }
+            }
 <% end -%>
+        }
     }
+};
+
+extern "C" AKDSPRef create<%= node[2..-1] %>DSP() {
+    return new <%= node %>DSP();
 }

@@ -20,9 +20,9 @@ public class <%= node %>AudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         parameterTree = AUParameterTree.createTree(withChildren: [<% parameters.each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do |sp_var, data| -%>
 <%= data["ak-variable"] %><%= ", " if i < parameters.count - 1 -%>

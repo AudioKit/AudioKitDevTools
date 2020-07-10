@@ -4,22 +4,22 @@
 open class <%= node %>: AKNode, AKToggleable, AKComponent, AKInput<% if parameters.count > 0 -%>, AKAutomatable<% end -%> {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "<%= four_letter_code %>")
-    
+
     public typealias AKAudioUnitType = <%= node %>AudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
 <% if parameters.count > 0 -%>
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
 <% end -%>
     // MARK: - Parameters
-    
+
 <% (parameters).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
     /// Lower and upper bounds for <%= data["ak-variable"].titlecase %>
@@ -57,15 +57,15 @@ open class <%= node %>: AKNode, AKToggleable, AKComponent, AKInput<% if paramete
         <%= data["ak-variable"] %>: AUValue = default<%= data["ak-variable"].camelcase %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 <% if parameters.count > 0 -%>
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+
 <% end -%>
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
