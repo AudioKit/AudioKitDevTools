@@ -1,8 +1,8 @@
-installation-directory: "Generators/Oscillators/"
+installation-directory: "Generators/Oscillators/Phase Distortion Oscillator/"
 
 sp-module: phasor
 
-node: AKPhasor
+node: AKPhaseDistortionOscillator
 
 akalias: phasor
 
