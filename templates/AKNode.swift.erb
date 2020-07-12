@@ -3,9 +3,6 @@
 ///
 open class <%= node %>: AKNode, AKToggleable, AKComponent, AKInput<% if parameters.count > 0 -%>, AKAutomatable<% end -%> {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "<%= four_letter_code %>")
 
     public typealias AKAudioUnitType = <%= node %>AudioUnit
@@ -13,25 +10,11 @@ open class <%= node %>: AKNode, AKToggleable, AKComponent, AKInput<% if paramete
     public private(set) var internalAU: AKAudioUnitType?
 
 <% if parameters.count > 0 -%>
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
 <% end -%>
     // MARK: - Parameters
 
-<% (parameters).each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-    /// Lower and upper bounds for <%= data["ak-variable"].titlecase %>
-    public static let <%= data["ak-variable"] %>Range: ClosedRange<AUValue> = <%= data["minimum"] %> ... <%= data["maximum"] %>
-<% end %>
-<% end -%>
-<% (parameters + constants).each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-    /// Initial value for <%= data["ak-variable"].titlecase %>
-    public static let default<%= data["ak-variable"].camelcase %>: AUValue = <%= data["default"] %>
-<% end %>
-<% end -%>
 <%= parameters_partial -%>
     // MARK: - Initialization
 
@@ -54,10 +37,14 @@ open class <%= node %>: AKNode, AKToggleable, AKComponent, AKInput<% if paramete
 <% end -%>
 <% (parameters + constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-        <%= data["ak-variable"] %>: AUValue = default<%= data["ak-variable"].camelcase %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
+        <%= data["ak-variable"] %>: AUValue = <%= data["default"] %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+<% (tables+parameters).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+        self.<%= data["ak-variable"] %> = <%= data["ak-variable"] %>
+<% end -%>
+<% end -%>
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
@@ -66,11 +53,6 @@ open class <%= node %>: AKNode, AKToggleable, AKComponent, AKInput<% if paramete
 <% if parameters.count > 0 -%>
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
-<% end -%>
-<% parameters.each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-            self.<%= data["ak-variable"] %>.associate(with: self.internalAU, value: <%= data["ak-variable"] %>)
-<% end -%>
 <% end -%>
 
 <% if inputs.count > 0 -%>
