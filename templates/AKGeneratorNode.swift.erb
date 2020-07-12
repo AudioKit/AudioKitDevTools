@@ -3,44 +3,27 @@
 ///
 open class <%= node %>: AKNode, AKToggleable, AKComponent<% if parameters.count > 0 -%>, AKAutomatable<% end -%> {
 
-    // MARK: - AKComponent
-    
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "<%= four_letter_code %>")
-    
+
     public typealias AKAudioUnitType = <%= node %>AudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
 <% if parameters.count > 0 -%>
-    // MARK: - AKAutomatable
-    
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
 <% end -%>
     // MARK: - Parameters
-    
+
 <% tables.each do |table| -%>
 <% table.each do |sp_var, data| -%>
     fileprivate var <%= data["ak-variable"] %>: AKTable?
 
 <% end -%>
 <% end -%>
-<% (parameters).each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-    /// Lower and upper bounds for <%= data["ak-variable"].titlecase %>
-    public static let <%= data["ak-variable"] %>Range: ClosedRange<AUValue> = <%= data["minimum"] %> ... <%= data["maximum"] %>
-<% end %>
-<% end -%>
-<% (parameters + constants).each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-    /// Initial value for <%= data["ak-variable"].titlecase %>
-    public static let default<%= data["ak-variable"].camelcase %>: AUValue = <%= data["default"] %>
-<% end %>
-<% end -%>
 <%= parameters_partial -%>
     // MARK: - Initialization
-    
+
     /// Initialize this <%= one_word_desc %> node
     ///
     /// - Parameters:
@@ -63,7 +46,7 @@ open class <%= node %>: AKNode, AKToggleable, AKComponent<% if parameters.count 
 <% end -%>
 <% (parameters + constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-        <%= data["ak-variable"] %>: AUValue = default<%= data["ak-variable"].camelcase %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
+        <%= data["ak-variable"] %>: AUValue = <%= data["default"] %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
     ) {
 <%= audio_unit_setup_partial %>
     }

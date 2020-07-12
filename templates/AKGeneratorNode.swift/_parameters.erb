@@ -1,6 +1,6 @@
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
     /// <%= data["comment"] %>
-    public let <%= data["ak-variable"] %> = AKNodeParameter(identifier: "<%= data["ak-variable"] %>")
+    @Parameter public var <%= data["ak-variable"] %>: AUValue
 <% end %>
 <% end -%>

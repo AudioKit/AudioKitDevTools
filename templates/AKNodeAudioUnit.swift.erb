@@ -10,7 +10,7 @@ public class <%= node %>AudioUnit: AKAudioUnitBase {
         identifier: "<%= data["ak-variable"] %>",
         name: "<%= data["au-name"] %>",
         address: <%= node %>Parameter.<%= data["ak-variable"] %>.rawValue,
-        range: <%= node %>.<%= data["ak-variable"] %>Range,
+        range: <%= data["minimum"] %> ... <%= data["maximum"] %>,
         unit: .<%= data["au-unit"].downcase %>,
         flags: .default)
 <% end %>
