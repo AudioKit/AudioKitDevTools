@@ -1,7 +1,14 @@
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
+    static let <%= data["ak-variable"] %>Def = AKNodeParameterDef(
+        identifier: "<%= data["ak-variable"] %>",
+        name: "<%= data["au-name"] %>",
+        address: <%= node %>Parameter.<%= data["ak-variable"] %>.rawValue,
+        range: <%= data["minimum"] %> ... <%= data["maximum"] %>,
+        unit: .<%= data["au-unit"].downcase %>,
+        flags: .default)
+
     /// <%= data["comment"] %>
     @Parameter public var <%= data["ak-variable"] %>: AUValue
 <% end %>
 <% end -%>
-    

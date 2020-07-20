@@ -1,18 +1,21 @@
-installation-directory: "Generators/Oscillators/Square Wave/"
+installation-directory: "Generators/Oscillators/PWM Oscillator/"
 
 sp-module: blsquare
 
-node: AKSquareWaveOscillator
+node: AKPWMOscillator
 
-four-letter-code: sqro
+four-letter-code: pwmo
 
 summary: Band-limited square oscillator
 
 one-word-description: oscillator
 akalias: squareWave
 description:
-  This is a bandlimited square oscillator ported from the "square" function from the Faust
-  programming language.
+  Casio-style phase distortion with "pivot point" on the X axis This module is
+  designed to emulate the classic phase distortion synthesis technique. From
+  the mid 90's. The technique reads the first and second halves of the ftbl at
+  different rates in order to warp the waveform. For example, pdhalf can
+  smoothly transition a sinewave into something approximating a sawtooth wave.
 
 type: generator
 

@@ -37,18 +37,18 @@ parameters:
   maximum: 0.0
 }
 - atk: {
-  ak-variable: attackTime,
-  comment: "Attack time",
-  au-name: "Attack time",
+  ak-variable: attackDuration,
+  comment: "Attack duration",
+  au-name: "Attack duration",
   au-unit: Seconds,
   default: 0.1,
   minimum: 0.0,
   maximum: 1.0
 }
 - rel: {
-  ak-variable: releaseTime,
-  comment: "Release time",
-  au-name: "Release time",
+  ak-variable: releaseDuration,
+  comment: "Release Duration",
+  au-name: "Release duration",
   au-unit: Seconds,
   default: 0.1,
   minimum: 0.0,
