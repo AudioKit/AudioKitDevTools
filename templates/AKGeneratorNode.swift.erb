@@ -1,4 +1,5 @@
-<%= header_partial %>
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 /// <%= description %>
 ///
 public class <%= node %>: AKNode, AKToggleable, AKComponent<% if parameters.count > 0 -%>, AKAutomatable<% end -%> {
@@ -22,19 +23,7 @@ public class <%= node %>: AKNode, AKToggleable, AKComponent<% if parameters.coun
 <% end -%>
 <% end -%>
 <%= parameters_partial -%>
-    // MARK: - Audio Unit
-
-    public class InternalAU: AKAudioUnitBase {
-
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [<% parameters.each_with_index do |sp_parameter, i| -%>
-<% sp_parameter.each do  |sp_var, data| -%><%= node %>.<%= data["ak-variable"] %>Def<%= ",\n                    " if i < parameters.count - 1 %><% end %><% end %>]
-        }
-
-        public override func createDSP() -> AKDSPRef {
-            return create<%= node[2..-1] %>DSP()
-        }
-    }
+<%= internal_au_partial %>
 
     // MARK: - Initialization
 

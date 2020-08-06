@@ -1,0 +1,13 @@
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            [<% parameters.each_with_index do |sp_parameter, i| -%>
+<% sp_parameter.each do  |sp_var, data| -%><%= node %>.<%= data["ak-variable"] %>Def<%= ",\n             " if i < parameters.count - 1 %><% end %><% end %>]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            akCreateDSP("<%= node %>DSP")
+        }
+    }

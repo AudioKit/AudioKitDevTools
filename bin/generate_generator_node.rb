@@ -11,8 +11,8 @@ require 'fileutils'
 # Helper Functions #
 ####################
 
-def new_partial(template, name)
-	ERB.new(File.new("templates/#{template}/_#{name}.erb").read, nil, '-' ).result
+def new_partial(name)
+	ERB.new(File.new("templates/Partials/_#{name}.erb").read, nil, '-' ).result
 end
 
 def ak_pad(var)
@@ -93,41 +93,15 @@ FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 ################
 # AKNode.swift #
 ################
-audio_unit_setup_partial      = new_partial("AKGeneratorNode.swift", "audio_unit_setup")
-description_partial           = new_partial("AKGeneratorNode.swift", "description")
-header_partial                = new_partial("AKGeneratorNode.swift", "header")
-parameter_observation_partial = new_partial("AKGeneratorNode.swift", "parameter_observation")
-parameters_partial            = new_partial("AKGeneratorNode.swift", "parameters")
+audio_unit_setup_partial = new_partial("audio_unit_setup")
+parameters_partial       = new_partial("parameters")
+internal_au_partial      = new_partial("internal_au")
 
 File.open("templates/AKGeneratorNode.swift.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{output_folder}/#{node}.swift", 'w+') {|f| f.write(erb.result) }
 	# puts erb.result
 }
-
-
-#########################
-# AKNodeAudioUnit.swift #
-#########################
-File.open("templates/AKNodeAudioUnit.swift.erb") { |template|
-	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}AudioUnit.swift", 'w+') {|f| f.write(erb.result) }
-	# puts erb.result
-}
-#################
-# AKNodeDSP.hpp #
-#################
-File.open("templates/AKGeneratorNodeDSP.hpp.erb") { |template|
-	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}DSP.hpp", 'w+') {|f| f.write(erb.result) }
-	# puts erb.result
-}
-
-# File.open("templates/AKNodeDSP.hpp.erb") { |template|
-# 	erb = ERB.new( template.read, nil, '-' )
-# 	File.open("#{output_folder}/#{node}DSP.hpp", 'w+') {|f| f.write(erb.result) }
-# 	# puts erb.result
-# }
 
 #################
 # AKNodeDSP.mm #
@@ -138,36 +112,6 @@ File.open("templates/AKGeneratorNodeDSP.mm.erb") { |template|
 	# puts erb.result
 }
 
-
-#####################
-# AKNodeAudioUnit.h #
-#####################
-# File.open("templates/AKNodeAudioUnit.h.erb") { |template|
-# 	erb = ERB.new( template.read, nil, '-' )
-# 	File.open("#{output_folder}/#{node}AudioUnit.h", 'w+') {|f| f.write(erb.result) }
-# 	# puts erb.result
-# }
-
-######################
-# AKNodeAudioUnit.mm #
-######################
-header_partial             = new_partial("AKNodeAudioUnit.mm", "header")
-parameter_creation_partial = new_partial("AKNodeAudioUnit.mm", "parameter_creation")
-
-# File.open("templates/AKNodeAudioUnit.mm.erb") { |template|
-# 	erb = ERB.new( template.read, nil, '-' )
-# 	File.open("#{output_folder}/#{node}AudioUnit.mm", 'w+') {|f| f.write(erb.result) }
-# 	# puts erb.result
-# }
-
-#######################
-# AKNodeDSPKernel.hpp #
-#######################
-# File.open("templates/AKNodeDSPKernel.hpp.erb") { |template|
-# 	erb = ERB.new( template.read, nil, '-' )
-# 	File.open("#{output_folder}/#{node}DSPKernel.hpp", 'w+') {|f| f.write(erb.result) }
-# 	# puts erb.result
-# }
 
 ##########################
 # Preset Template Output #

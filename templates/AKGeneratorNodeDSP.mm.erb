@@ -1,14 +1,20 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "<%= node %>DSP.hpp"
-<% if parameters.count > 0 -%>
-#include "ParameterRamper.hpp"
-<% end -%>
+#include "AudioKit.h"
+#include "soundpipe.h"
 <% if tables.count > 0 -%>
 #include <vector>
 <% end -%>
 
-#import "AKSoundpipeDSPBase.hpp"
+#include "DebugDSP.h"
+
+enum <%= node %>Parameter : AUParameterAddress {
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    <%= node %>Parameter<%= data["ak-variable"].camelcase %>,
+<% end -%>
+<% end -%>
+};
 
 class <%= node %>DSP : public AKSoundpipeDSPBase {
 private:
@@ -38,13 +44,13 @@ public:
     }
 <% if tables.count > 0 -%>
 
-    void setWavetable(const float* table, size_t length, int index) override {
+    void setWavetable(const float* table, size_t length, int index) {
         waveform = std::vector<float>(table, table + length);
         reset();
     }
 <% end -%>
 
-    void init(int channelCount, double sampleRate) override {
+    void init(int channelCount, double sampleRate) {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
 <% if tables.count > 0 -%>
         sp_ftbl_create(sp, &ftbl, waveform.size());
@@ -61,7 +67,7 @@ public:
 <% end -%>
     }
 
-    void deinit() override {
+    void deinit() {
         AKSoundpipeDSPBase::deinit();
 <% if inputCount == 2 -%>
         sp_<%= sp_module %>_destroy(&<%= sp_module %>);
@@ -74,7 +80,7 @@ public:
 <% end -%>
     }
 
-    void reset() override {
+    void reset() {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
 <% if inputCount == 2 -%>
@@ -85,7 +91,7 @@ public:
 <% end -%>
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -117,6 +123,9 @@ public:
     }
 };
 
-extern "C" AKDSPRef create<%= node[2..-1] %>DSP() {
-    return new <%= node %>DSP();
-}
+AK_REGISTER_DSP(<%= node %>DSP)
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+AK_REGISTER_PARAMETER(<%= node %>Parameter<%= data["ak-variable"].camelcase %>)
+<% end -%>
+<% end -%>

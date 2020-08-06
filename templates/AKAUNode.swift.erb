@@ -1,7 +1,16 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit version of Apple's <%= au_name %> Audio Unit
-<%= parameter_docs_partial %>
+///
+/// - parameter input: Input node to process
+<% parameters.each do |parameter| -%>
+<% if parameter[:type] == "Percent" -%>
+    /// - parameter <%= parameter[:variable] %>: <%= parameter[:variable].underscore.humanize.titlecase %> (Normalized Value) ranges from 0 to 1 (Default: <%= parameter[:default].to_f/100 %>)
+<% else -%>
+    /// - parameter <%= parameter[:variable] %>: <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
+<% end -%>
+<% end -%>
+///
 open class AK<%= au_name %>: AKNode, AKToggleable, AUEffect, AKInput {
 
     /// Four letter unique description of the node

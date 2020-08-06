@@ -1,11 +1,20 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "<%= node %>DSP.hpp"
-<% if parameters.count > 0 -%>
-#include "ParameterRamper.hpp"
+#include "AudioKit.h"
+#include "soundpipe.h"
+<% if tables.count > 0 -%>
+#include <vector>
 <% end -%>
 
-#import "AKSoundpipeDSPBase.hpp"
+#include "DebugDSP.h"
+
+enum <%= node %>Parameter : AUParameterAddress {
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    <%= node %>Parameter<%= data["ak-variable"].camelcase %>,
+<% end -%>
+<% end -%>
+};
 
 class <%= node %>DSP : public AKSoundpipeDSPBase {
 private:
@@ -16,8 +25,8 @@ private:
     sp_<%= sp_module %> *<%= sp_module %>1;
 <% end -%>
 <% if tables.count > 0 -%>
-    sp_ftbl *_ftbl;
-    UInt32 _ftbl_size = 4096;
+    sp_ftbl *ftbl;
+    std::vector<float> waveform;
 <% end -%>
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
@@ -55,6 +64,9 @@ public:
         sp_<%= sp_module %>_destroy(&<%= sp_module %>0);
         sp_<%= sp_module %>_destroy(&<%= sp_module %>1);
 <% end -%>
+<% if tables.count > 0 -%>
+        sp_ftbl_destroy(&ftbl);
+<% end -%>
     }
 
     void reset() {
@@ -68,18 +80,7 @@ public:
 <% end -%>
     }
 
-<% if tables.count > 0 -%>
-    void setupWaveform(uint32_t size) {
-        _ftbl_size = size;
-        sp_ftbl_create(sp, &_ftbl, _ftbl_size);
-    }
-
-    void setWaveformValue(uint32_t index, float value) {
-        _ftbl->tbl[index] = value;
-    }
-<% end -%>
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -125,6 +126,9 @@ public:
     }
 };
 
-extern "C" AKDSPRef create<%= node[2..-1] %>DSP() {
-    return new <%= node %>DSP();
-}
+AK_REGISTER_DSP(<%= node %>DSP)
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+AK_REGISTER_PARAMETER(<%= node %>Parameter<%= data["ak-variable"].camelcase %>)
+<% end -%>
+<% end -%>
