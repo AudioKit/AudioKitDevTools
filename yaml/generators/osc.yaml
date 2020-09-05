@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/Oscillator/"
+swift-directory: "Generators/Oscillators/"
 
 sp-module: osc
 
@@ -12,7 +12,7 @@ one-word-description: oscillator
 
 type: generator
 
-description:
+description: |
  Reads from the table sequentially and repeatedly at given frequency.
  Linear interpolation is applied for table look up from internal phase values.
 
@@ -31,7 +31,7 @@ parameters:
     au-unit: Hertz,
     default: 440.0,
     minimum: 0.0,
-    maximum: 20000.0
+    maximum: "20_000.0"
 }
 
 - amp: {
@@ -50,8 +50,8 @@ parameters:
     au-name: "Frequency offset (Hz)",
     au-unit: Hertz,
     default: 0.0,
-    minimum: -1000.0,
-    maximum: 1000.0
+    minimum: "-1_000.0",
+    maximum: "1_000.0"
 }
 
 - detuneScale: {

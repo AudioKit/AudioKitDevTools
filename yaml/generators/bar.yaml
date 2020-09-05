@@ -1,4 +1,4 @@
-installation-directory: "Generators/Physical Models/Metal\ Bar/"
+swift-directory: "Generators/Physical Models/"
 
 sp-module: bar
 
@@ -6,11 +6,11 @@ node: AKMetalBar
 
 four-letter-code: mbar
 
-summary: Physical model approximating the sound of a struck metal bar
-
 one-word-description: Bar
 
-description: ""
+description: |
+  Physical model approximating the sound of a struck metal bar
+  TODO This node needs to have tests
 
 parameters:
 - bcL: {
@@ -65,7 +65,7 @@ parameters:
   au-unit: Generic,
   default: 500,
   minimum: 0,
-  maximum: 1000
+  maximum: "1_000"
 }
 - wid: {
   ak-variable: strikeWidth,

@@ -1,4 +1,4 @@
-installation-directory: "Effects/Guitar Processors/Auto Wah/"
+swift-directory: "Effects/Guitar Processors/"
 
 sp-module: autowah
 

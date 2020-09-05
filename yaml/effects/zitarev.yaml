@@ -1,4 +1,4 @@
-installation-directory: "Effects/Reverb/Zita\ Reverb"
+swift-directory: "Effects/Reverb/"
 
 sp-module: zitarev
 
@@ -37,7 +37,7 @@ parameters:
   au-unit: Hertz,
   default: 200.0,
   minimum: 10.0,
-  maximum: 1000.0
+  maximum: "1_000.0"
 }
 - rt60_low: {
   ak-variable: lowReleaseTime,
@@ -62,9 +62,9 @@ parameters:
   comment: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
   au-name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
   au-unit: Hertz,
-  default: 6000.0,
+  default: "6_000.0",
   minimum: 10.0,
-  maximum: 22050.0
+  maximum: "22_050.0"
 }
 - eq1_freq: {
   ak-variable: equalizerFrequency1,
@@ -73,7 +73,7 @@ parameters:
   au-unit: Hertz,
   default: 315.0,
   minimum: 10.0,
-  maximum: 1000.0
+  maximum: "1_000.0"
 }
 - eq1_level: {
   ak-variable: equalizerLevel1,
@@ -89,9 +89,9 @@ parameters:
   comment: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
   au-name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
   au-unit: Hertz,
-  default: 1500.0,
+  default: "1_500.0",
   minimum: 10.0,
-  maximum: 22050.0
+  maximum: "22_050.0"
 }
 - eq2_level: {
   ak-variable: equalizerLevel2,

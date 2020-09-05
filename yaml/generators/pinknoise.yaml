@@ -1,4 +1,4 @@
-installation-directory: "Generators/Noise/Pink Noise/"
+swift-directory: "Generators/Noise/"
 
 sp-module: pinknoise
 

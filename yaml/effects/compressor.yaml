@@ -1,4 +1,4 @@
-installation-directory: "Effects/Dynamics/Dynamic\ Range\ Compressor/"
+swift-directory: "Effects/Dynamics/"
 
 sp-module: compressor
 

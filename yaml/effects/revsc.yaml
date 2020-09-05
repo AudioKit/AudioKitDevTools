@@ -1,4 +1,4 @@
-installation-directory: "Effects/Reverb/Costello Reverb/"
+swift-directory: "Effects/Reverb/"
 
 sp-module: revsc
 
@@ -15,7 +15,7 @@ four-letter-code: rvsc
 
 one-word-description:  reverb
 
-description:
+description: |
   8 delay line stereo FDN reverb, with feedback matrix based upon physical
   modeling scattering junction of 8 lossless waveguides of equal characteristic impedance.
 
@@ -40,8 +40,8 @@ parameters:
   comment: "Low-pass cutoff frequency.",
   au-name: "Cutoff Frequency",
   au-unit: Hertz,
-  default: 4000.0,
+  default: "4_000.0",
   minimum: 12.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 

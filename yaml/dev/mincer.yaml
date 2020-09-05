@@ -1,42 +1,53 @@
-installation-directory: "../AudioKit/Operations/FFT/"
+swift-directory: "Playback/"
 
 sp-module: mincer
 
-node: AKVocoder
+node: AKPhaseLockedVocoder
 
 four-letter-code: minc
 
-summary: Phase-locked vocoder
+summary: Phase-locked vocoder.
 
 one-word-description: vocoder
 
-description:
-  Mincer is a phase-locked vocoder. It has the ability to play back an audio
+description: |
+  This is a phase locked vocoder. It has the ability to play back an audio
   file loaded into an ftable like a sampler would. Unlike a typical sampler, mincer allows
   time and pitch to be controlled separately.
 
 
 tables:
 - ft: {
-  ak-variable: ft,
-  comment: "ftable containing an audio file.",
-  default:
+  ak-variable: audioFileTable,
+  comment: "Table containing an audio file.",
 }
 
 parameters:
 - time: {
-  ak-variable: time,
+  ak-variable: position,
   comment: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
-  default: 0
+  au-name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
+  au-unit: Generic,
+  default: 0,
+  minimum: 0,
+  maximum: 1
 }
 - amp: {
-  ak-variable: amp,
+  ak-variable: amplitude,
   comment: "Amplitude.",
-  default: 1
+  au-name: "Amplitude.",
+  au-unit: Generic,
+  default: 1,
+  minimum: 0,
+  maximum: 1
 }
 - pitch: {
-  ak-variable: pitch,
+  ak-variable: pitchRatio,
   comment: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
-  default: 1
+  au-name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
+  au-unit: Hertz,
+  default: 1,
+  minimum: 0,
+  maximum: "1_000"
 }
 

@@ -1,4 +1,4 @@
-installation-directory: "Effects/Envelopes/Amplitude Envelope/"
+swift-directory: "Effects/Envelopes/"
 
 sp-module: adsr
 

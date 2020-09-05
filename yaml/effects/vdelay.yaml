@@ -1,4 +1,4 @@
-installation-directory: "Effects/Delay/Variable\ Delay/"
+swift-directory: "Effects/Delay/"
 
 sp-module: vdelay
 
@@ -14,6 +14,11 @@ one-word-description: delay
 
 description:
   A delay line with cubic interpolation.
+
+c-functions: |2
+          public func setMaximumTime(_ maximumTime: AUValue) {
+              akVariableDelaySetMaximumTime(dsp, maximumTime)
+          }
 
 inputs:
 - source: {
@@ -44,7 +49,7 @@ parameters:
 
 constants:
 - maxdel: {
-  ak-variable: maximumDelayTime,
+  ak-variable: maximumTime,
   comment: "The maximum delay time, in seconds.",
   au-name: "Maximum Delay time (Seconds)",
   au-unit: Seconds,

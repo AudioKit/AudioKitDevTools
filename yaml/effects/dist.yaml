@@ -1,4 +1,4 @@
-installation-directory: "Effects/Distortion/Tanh Distortion/"
+swift-directory: "Effects/Distortion/"
 
 sp-module: dist
 
@@ -23,7 +23,7 @@ inputs:
 parameters:
 - pregain: {
   ak-variable: pregain,
-  comment: "Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.",
+  comment: "Determines gain applied to the signal before waveshaping. A value of 1 gives slight distortion.",
   au-name: "Pregain",
   au-unit: Generic,
   default: 2.0,

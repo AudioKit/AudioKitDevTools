@@ -1,4 +1,4 @@
-installation-directory: "Generators/Noise/White Noise/"
+swift-directory: "Generators/Noise/"
 
 sp-module: noise
 akalias: whiteNoise

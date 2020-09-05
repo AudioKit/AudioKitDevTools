@@ -1,4 +1,4 @@
-installation-directory: "Effects/Distortion/Clipper/"
+swift-directory: "Effects/Distortion/"
 
 sp-module: clip
 

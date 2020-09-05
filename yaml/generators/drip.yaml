@@ -1,4 +1,4 @@
-installation-directory: "Generators/Physical Models/Drip/"
+swift-directory: "Generators/Physical Models/"
 
 sp-module: drip
 
@@ -10,9 +10,18 @@ summary: Water drop physical model
 
 one-word-description: drip
 
+control-block: |2
+      /// Trigger the sound with an optional set of parameters
+      ///
+      public func trigger() {
+          internalAU?.start()
+          internalAU?.trigger()
+      }
 
-description:
-    Physical model of the sound of dripping water. When triggered, it will produce a droplet of water.
+description: |
+    Physical model of the sound of dripping water. 
+    When triggered, it will produce a droplet of water.
+    TODO This node needs to have tests.
 
 parameters:
 - num_tubes: {
@@ -49,7 +58,7 @@ parameters:
   au-unit: Hertz,
   default: 450,
   minimum: 0,
-  maximum: 22000
+  maximum: "22_000"
 }
 - freq1: {
   ak-variable: firstResonantFrequency,
@@ -58,7 +67,7 @@ parameters:
   au-unit: Hertz,
   default: 600,
   minimum: 0,
-  maximum: 22000
+  maximum: "22_000"
 }
 - freq2: {
   ak-variable: secondResonantFrequency,
@@ -67,7 +76,7 @@ parameters:
   au-unit: Hertz,
   default: 750,
   minimum: 0,
-  maximum: 22000
+  maximum: "22_000"
 }
 - amp: {
   ak-variable: amplitude,

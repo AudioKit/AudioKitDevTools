@@ -1,4 +1,4 @@
-installation-directory: "Effects/Envelopes/Tremolo/"
+swift-directory: "Effects/Envelopes/"
 
 sp-module: trem
 

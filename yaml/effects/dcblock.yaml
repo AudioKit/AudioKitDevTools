@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/DC Block/"
+swift-directory: "Effects/Filters/"
 
 sp-module: dcblock
 
@@ -8,8 +8,9 @@ akalias: dcBlock
 
 summary:  A DC blocking filter.
 
-description:
-  Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based on work by Perry Cook.
+description: |
+  Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  
+  Based on work by Perry Cook.
 
 four-letter-code: dcbk
 

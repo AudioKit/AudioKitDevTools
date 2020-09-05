@@ -5,7 +5,7 @@
         name: "<%= data["au-name"] %>",
         address: akGetParameterAddress("<%= node %>Parameter<%= data["ak-variable"].camelcase %>"),
         range: <%= data["minimum"] %> ... <%= data["maximum"] %>,
-        unit: .<%= data["au-unit"].downcase %>,
+        unit: .<%= firstLower(data["au-unit"]) %>,
         flags: .default)
 
     /// <%= data["comment"] %>

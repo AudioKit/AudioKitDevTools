@@ -1,4 +1,4 @@
-installation-directory: "/Generators/Physical Models/Vocal Tract/"
+swift-directory: "/Generators/Physical Models/"
 
 sp-module: vocwrapper
 
@@ -10,7 +10,7 @@ summary: Physical model of the vocal tract glottal pulse wave
 
 one-word-description: vocal tract
 
-description:
+description: |
   Based on the Pink Trombone algorithm by Neil Thapen, this implements a physical
   model of the vocal tract glottal pulse wave. The tract model is based on the
   classic Kelly-Lochbaum
@@ -25,7 +25,7 @@ parameters:
   au-unit: Hertz,
   default: 160.0,
   minimum: 0.0,
-  maximum: 22050.0
+  maximum: "22_050.0"
 }
 - pos: {
   ak-variable: tonguePosition,

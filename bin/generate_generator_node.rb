@@ -22,7 +22,7 @@ def ak_pad(var)
 end
 
 def wrap(str, indent="")
-	ActionView::Base.new.word_wrap(str, :line_width => 76).gsub("\n", "\n" + indent + "/// " )
+	str.gsub("\n", "\n" + indent + "/// " )
 end
 
 def upper(str)
@@ -35,15 +35,17 @@ end
 opcode_yaml = ARGV[0]
 o = YAML::load(File.open("#{opcode_yaml}"))
 
-output_folder       = o["installation-directory"]
+output_folder       = o["swift-directory"]
 sp_module           = o["sp-module"]
 node                = o["node"]
 four_letter_code    = o["four-letter-code"]
 one_word_desc       = o["one-word-description"]
+control_block       = o["control-block"]
 description         = wrap(o["description"])
 summary             = o["summary"]
 inputs	            = o["inputs"].to_a
 tables              = o["tables"].to_a
+tableArray          = o["tableArray"]
 parameters          = o["parameters"].to_a
 constants           = o["constants"].to_a
 constant_parameters = o["constant-parameters"].to_a
@@ -59,8 +61,8 @@ four_letter_hex = four_letter_code.unpack('U'*four_letter_code.length).collect {
 input_count  = o["input-count"].to_i
 input_count  = inputs.count 	if input_count == 0
 output_count = [o["output-count"].to_i, 1].max
-puts "input count  = " + input_count.to_s
-puts "output count = " + output_count.to_s
+# puts "input count  = " + input_count.to_s
+# puts "output count = " + output_count.to_s
 
 $longest_ak_variable = ""
 $longest_parameter = ""
@@ -87,7 +89,7 @@ end
 ###############
 
 # Set up the output folder relative to the current directory and create it if necessary
-output_folder = "../AudioKit/AudioKit/Common/Nodes/#{output_folder}/"
+output_folder = "../AudioKit/Sources/AudioKit/Nodes/#{output_folder}/"
 FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 
 ################
@@ -106,37 +108,9 @@ File.open("templates/AKGeneratorNode.swift.erb") { |template|
 #################
 # AKNodeDSP.mm #
 #################
-File.open("templates/AKGeneratorNodeDSP.mm.erb") { |template|
-	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}DSP.mm", 'w+') {|f| f.write(erb.result) }
-	# puts erb.result
-}
+# File.open("templates/AKGeneratorNodeDSP.mm.erb") { |template|
+# 	erb = ERB.new( template.read, nil, '-' )
+# 	File.open("#{output_folder}/#{node}DSP.mm", 'w+') {|f| f.write(erb.result) }
+# 	# puts erb.result
+# }
 
-
-##########################
-# Preset Template Output #
-##########################
-
-# puts "presets:"
-# puts "- name: {"
-# puts "  comment: \"\","
-
-# if parameters.count > 0
-# 	puts "  parameters: {"
-# 	parameters.each do |p|
-# 		p.each do |sp_var, data|
-# 			puts "    " + data["ak-variable"].to_s + ": value,"
-# 		end
-# 	end
-# 	puts "  },"
-# end
-# if constants.count > 0
-# 	puts "  constants: {"
-# 	constants.each do |p|
-# 		p.each do |sp_var, data|
-# 			puts "    " + data["ak-variable"].to_s + ": value,"
-# 		end
-# 	end
-# 	puts "  }"
-# end
-# puts "}"

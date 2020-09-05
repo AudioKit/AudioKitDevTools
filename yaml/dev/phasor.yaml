@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/Phase Distortion Oscillator/"
+swift-directory: "Generators/Oscillators/"
 
 sp-module: phasor
 
@@ -8,7 +8,7 @@ akalias: phasor
 
 summary: A normalized moving phase value.
 
-four-letter-code: phsr
+four-letter-code: pdho
 
 one-word-description: phasor
 
@@ -23,7 +23,7 @@ parameters:
   au-unit: Hertz,
   default: 1.0,
   minimum: 0.0,
-  maximum: 1000.0
+  maximum: "1_000.0"
 }
 
 constants:

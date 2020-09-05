@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/Equalizer Filter/"
+swift-directory: "Effects/Filters//"
 
 sp-module: eqfil
 
@@ -12,7 +12,7 @@ four-letter-code: eqfl
 
 one-word-description: filter
 
-description:
+description:  |
   A 2nd order tunable equalization filter that provides a
   peak/notch filter for building parametric/graphic equalizers.
   With gain above 1, there will be a peak at the center frequency
@@ -31,9 +31,9 @@ parameters:
   comment: "Center frequency. (in Hertz)",
   au-name: "Center Frequency (Hz)",
   au-unit: Hertz,
-  default: 1000.0,
+  default: "1_000.0",
   minimum: 12.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - bw: {
   ak-variable: bandwidth,
@@ -42,7 +42,7 @@ parameters:
   comment: "The peak/notch bandwidth in Hertz",
   default: 100.0,
   minimum: 0.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - gain: {
   ak-variable: gain,

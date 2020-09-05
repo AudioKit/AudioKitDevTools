@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/FM Oscillator/"
+swift-directory: "Generators/Oscillators/"
 
 sp-module: fosc
 sporth-module: fm
@@ -28,12 +28,12 @@ tables:
 parameters:
 - freq: {
 	ak-variable: baseFrequency,
-	comment: "In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.",
+	comment: "In cycles per second, the common denominator for the carrier and modulating frequencies.",
   au-name: "Base Frequency (Hz)",
   au-unit: Hertz,
   default: 440.0,
   minimum: 0.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - car: {
 	ak-variable: carrierMultiplier,
@@ -42,7 +42,7 @@ parameters:
   au-unit: Generic,
   default: 1.0,
   minimum: 0.0,
-  maximum: 1000.0
+  maximum: "1_000.0"
 }
 - mod: {
 	ak-variable: modulatingMultiplier,
@@ -51,7 +51,7 @@ parameters:
   au-unit: Generic,
   default: 1.0,
   minimum: 0.0,
-  maximum: 1000.0
+  maximum: "1_000.0"
 }
 - indx: {
 	ak-variable: modulationIndex,
@@ -60,7 +60,7 @@ parameters:
   au-unit: Generic,
   default: 1.0,
   minimum: 0.0,
-  maximum: 1000.0
+  maximum: "1_000.0"
 }
 - amp: {
 	ak-variable: amplitude,
@@ -71,28 +71,5 @@ parameters:
   minimum: 0.0,
   maximum: 10.0
 }
-
-presets:
-- StunRay: {
-  comment: "",
-  parameters: {
-    baseFrequency: 200,
-    carrierMultiplier: 90,
-    modulatingMultiplier: 10,
-    modulationIndex: 25,
-    amplitude: 0.5
-  }
-}
-- Wobble: {
-  comment: "",
-  parameters: {
-    baseFrequency: 20,
-    carrierMultiplier: 10,
-    modulatingMultiplier: 0.9,
-    modulationIndex: 20,
-    amplitude: 0.5,
-  }
-}
-
 
 

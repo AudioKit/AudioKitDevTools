@@ -1,4 +1,4 @@
-installation-directory: "Effects/GuitarProcessor/Rhino/"
+swift-directory: "Effects/Guitar Processors/"
 
 sp-module: rhino
 

@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/Three Pole Low Pass Filter/"
+swift-directory: "Effects/Filters/"
 
 sp-module: lpf18
 
@@ -36,9 +36,9 @@ parameters:
   au-name: "Cutoff Frequency (Hz)",
   au-unit: Hertz,
   comment: "Filter cutoff frequency in Hertz.",
-  default: 1500,
+  default: "1_500",
   minimum: 12.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - res: {
   ak-variable: resonance,

@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/Formant Filter/"
+swift-directory: "Effects/Filters/"
 
 sp-module: fofilt
 
@@ -12,9 +12,9 @@ four-letter-code: fofi
 
 one-word-description: filter
 
-description:
-  When fed with a pulse train, it will generate a series of overlapping grains. Overlapping will occur when 1/freq < dec,
-  but there is no upper limit on the number of overlaps.
+description:  |
+  When fed with a pulse train, it will generate a series of overlapping grains. 
+  Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps.
 
 inputs:
 - source: {
@@ -28,9 +28,9 @@ parameters:
   comment: "Center frequency.",
   au-name: "Center Frequency (Hz)",
   au-unit: Hertz,
-  default: 1000,
+  default: "1_000",
   minimum: 12.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - atk: {
   ak-variable: attackDuration,

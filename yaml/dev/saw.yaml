@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/Sawtooth/"
+swift-directory: "Generators/Oscillators/Sawtooth/"
 
 sp-module: blsaw
 
@@ -25,7 +25,7 @@ parameters:
   au-unit: Hertz,
   default: 440,
   minimum: 0.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - amp: {
   ak-variable: amplitude,
@@ -44,7 +44,7 @@ parameters:
     au-unit: Hertz,
     default: 0,
     minimum: -1000,
-    maximum: 1000
+    maximum: "1_000"
 }
 
 - detuneScale: {

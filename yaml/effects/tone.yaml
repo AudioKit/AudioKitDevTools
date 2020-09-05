@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/Tone Filter/"
+swift-directory: "Effects/Filters/"
 
 sp-module: tone
 
@@ -26,9 +26,9 @@ parameters:
   ak-variable: halfPowerPoint,
   au-name: "Half-Power Point (Hz)",
   au-unit: Hertz,
-  comment: "The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.",
-  default: 1000.0,
+  comment: "Response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.",
+  default: "1_000.0",
   minimum: 12.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 

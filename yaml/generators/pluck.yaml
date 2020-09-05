@@ -1,4 +1,4 @@
-installation-directory: "Generators/Physical Models/Plucked String/"
+swift-directory: "Generators/Physical Models/"
 
 sp-module: pluck
 
@@ -10,17 +10,19 @@ summary:
 
 one-word-description: pluck
 
-description: Karplus-Strong plucked string instrument.
+description: |
+  Karplus-Strong plucked string instrument.
+  TODO This node needs tests
 
 parameters:
 - freq: {
   ak-variable: frequency,
-  comment: "Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.",
-  au-name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
+  comment: "Variable frequency. Values less than the initial frequency are doubled until greater than that.",
+  au-name: "Variable frequency. Values less than the initial frequency are doubled until greater than that.",
   au-unit: Hertz,
   default: 110,
   minimum: 0,
-  maximum: 22000
+  maximum: "22_000"
 }
 - amp: {
   ak-variable: amplitude,
@@ -39,3 +41,23 @@ constants:
   default: 110
 }
 
+control-block: |2
+      /// Trigger the sound with current parameters
+      ///
+      open func trigger() {
+          internalAU?.start()
+          internalAU?.trigger()
+      }
+
+      /// Trigger the sound with a set of parameters
+      ///
+      /// - Parameters:
+      ///   - frequency: Frequency in Hz
+      ///   - amplitude: Volume
+      ///
+      open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
+          self.frequency = frequency
+          self.amplitude = amplitude
+          internalAU?.start()
+          internalAU?.triggerFrequency(frequency, amplitude: amplitude)
+      }

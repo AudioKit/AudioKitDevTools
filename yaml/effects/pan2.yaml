@@ -1,4 +1,4 @@
-installation-directory: "Mixing/Panner/"
+swift-directory: "Mixing/"
 
 sp-module: panst
 

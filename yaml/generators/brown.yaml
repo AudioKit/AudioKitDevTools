@@ -1,4 +1,4 @@
-installation-directory: "Generators/Noise/Brownian Noise/"
+swift-directory: "Generators/Noise/"
 
 sp-module: brown
 akalias: brownianNoise

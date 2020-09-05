@@ -1,4 +1,4 @@
-installation-directory: "Analysis/"
+swift-directory: "Analysis/"
 
 sp-module: pitchamdf
 
@@ -28,7 +28,7 @@ constants:
   default: 200
   default: 200,
   minimum: 0,
-  maximum: 20000
+  maximum: "2_000"0
 }
 - max: {
   ak-variable: maximumFrequency,
@@ -38,5 +38,5 @@ constants:
   default: 500
   default: 200,
   minimum: 0,
-  maximum: 20000
+  maximum: "2_000"0
 }

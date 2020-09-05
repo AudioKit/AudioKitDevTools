@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/Modal Resonance Filter/"
+swift-directory: "Effects/Filters/"
 
 sp-module: mode
 akalias: modalResonanceFilter
@@ -11,7 +11,7 @@ four-letter-code: modf
 
 one-word-description: filter
 
-description:
+description: |
   A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created
   using  passing an impulse through a combination of modal filters.
 
@@ -29,7 +29,7 @@ parameters:
   au-unit: Hertz,
   default: 500.0,
   minimum: 12.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - q: {
   ak-variable: qualityFactor,

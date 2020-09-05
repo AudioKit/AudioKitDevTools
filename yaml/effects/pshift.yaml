@@ -1,4 +1,4 @@
-installation-directory: "Effects/Pitch Shifter"
+swift-directory: "Effects/Pitch Shifter/"
 
 sp-module: pshift
 
@@ -33,9 +33,9 @@ parameters:
   comment: "Window size (in samples)",
   au-name: "Window size (in samples)",
   au-unit: Hertz,
-  default: 1024,
+  default: "1_024",
   minimum: 0.0,
-  maximum: 10000.0
+  maximum: "10_000.0"
 }
 - xfade: {
   ak-variable: crossfade,
@@ -44,6 +44,6 @@ parameters:
   au-unit: Hertz,
   default: 512,
   minimum: 0.0,
-  maximum: 10000.0
+  maximum: "10_000.0"
 }
 

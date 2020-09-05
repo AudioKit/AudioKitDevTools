@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/String Resonator/"
+swift-directory: "Effects/Filters/"
 
 sp-module: streson
 
@@ -10,9 +10,12 @@ one-word-description: filter
 
 summary:   A string resonator with variable fundamental frequency.
 
-description:
-  AKStringResonator passes the input through a network composed of comb, low-pass and all-pass filters, similar to the one used in some versions of the Karplus-Strong algorithm, creating a string resonator effect. The fundamental frequency of the “string” is
-  controlled by the fundamentalFrequency.  This operation can be used to simulate sympathetic resonances to an input signal.
+description: |
+  AKStringResonator passes the input through a network composed of comb, 
+  low-pass and all-pass filters, similar to the one used in some versions of the 
+  Karplus-Strong algorithm, creating a string resonator effect. The fundamental frequency 
+  of the “string” is controlled by the fundamentalFrequency.  
+  This operation can be used to simulate sympathetic resonances to an input signal.
 
 inputs:
 - source: {
@@ -28,7 +31,7 @@ parameters:
   au-unit: Hertz,
   default: 100,
   minimum: 12.0,
-  maximum: 10000.0
+  maximum: "10_000.0"
 }
 - fdbgain: {
   ak-variable: feedback,

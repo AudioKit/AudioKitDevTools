@@ -1,4 +1,4 @@
-installation-directory: "Signal\ Generators/Subtractive\ Synthesis/"
+swift-directory: "Signal\ Generators/Subtractive\ Synthesis/"
 
 sp-module: gbuzz
 

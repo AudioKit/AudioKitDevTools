@@ -1,4 +1,4 @@
-installation-directory: "Effects/Distortion/Bit Crusher/"
+swift-directory: "Effects/Distortion/"
 
 sp-module: bitcrush
 
@@ -36,8 +36,8 @@ parameters:
   comment: "The sample rate of signal output.",
   au-name: "Sample Rate (Hz)",
   au-unit: Hertz,
-  default: 10000,
+  default: "10_000",
   minimum: 0.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 

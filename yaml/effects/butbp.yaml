@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/Band Pass Butterworth Filter/"
+swift-directory: "Effects/Filters/"
 
 sp-module: butbp
 
@@ -10,9 +10,9 @@ four-letter-code: btbp
 
 one-word-description: filter
 
-description:
+description: |
   These filters are Butterworth second-order IIR filters. They offer an almost flat
- passband and very good precision and stopband attenuation.
+  passband and very good precision and stopband attenuation.
 
 inputs:
 - source: {
@@ -26,9 +26,9 @@ parameters:
   au-name: "Center Frequency (Hz)",
   au-unit: Hertz,
   comment: "Center frequency. (in Hertz)",
-  default: 2000.0,
+  default: "2_000.0",
   minimum: 12.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - bw: {
   ak-variable: bandwidth,
@@ -37,6 +37,6 @@ parameters:
   comment: "Bandwidth. (in Hertz)",
   default: 100.0,
   minimum: 0.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 

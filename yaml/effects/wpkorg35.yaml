@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/Korg Low Pass Filter/"
+swift-directory: "Effects/Filters/"
 
 sp-module: wpkorg35
 
@@ -26,9 +26,9 @@ parameters:
   comment: "Filter cutoff",
   au-name: "Filter cutoff",
   au-unit: Hertz,
-  default: 1000.0,
+  default: "1_000.0",
   minimum: 0.0,
-  maximum: 22050.0
+  maximum: "22_050.0"
 }
 - res: {
   ak-variable: resonance,

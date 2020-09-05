@@ -1,4 +1,4 @@
-installation-directory: "Effects/Modulation/Phaser/"
+swift-directory: "Effects/Modulation/"
 
 sp-module: phaser
 
@@ -12,7 +12,7 @@ inputCount: 2
 
 one-word-description: phaser
 
-description: A stereo phaser
+description:
   This is a stereo phaser, generated from Faust code taken from the Guitarix project.
 
 inputs:
@@ -29,7 +29,7 @@ parameters:
   au-unit: Hertz,
   default: 100,
   minimum: 20,
-  maximum: 5000
+  maximum: "5_000"
 }
 - MaxNotch1Freq: {
   ak-variable: notchMaximumFrequency,
@@ -38,16 +38,16 @@ parameters:
   au-unit: Hertz,
   default: 800,
   minimum: 20,
-  maximum: 10000
+  maximum: "10_000"
 }
 - Notch_width: {
   ak-variable: notchWidth,
   comment: "Between 10 and 5000",
   au-name: "Between 10 and 5000",
   au-unit: Hertz,
-  default: 1000,
+  default: "1_000",
   minimum: 10,
-  maximum: 5000
+  maximum: "5_000"
 }
 - NotchFreq: {
   ak-variable: notchFrequency,

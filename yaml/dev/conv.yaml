@@ -1,4 +1,4 @@
-installation-directory: "/Effects/Reverb/Convolution/"
+swift-directory: "/Effects/Reverb/"
 
 sp-module: conv
 

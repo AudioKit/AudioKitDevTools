@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/"
+swift-directory: "Generators/Oscillators/"
 
 sp-module: sine
 

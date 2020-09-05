@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/Morphing Oscillator/"
+swift-directory: "Generators/Oscillators/"
 
 sp-module: oscmorph
 
@@ -10,16 +10,12 @@ summary: Wavetable morphing oscillator
 
 one-word-description: Morpher
 
-description:
+description: |
   This is an oscillator with linear interpolation that is capable of morphing
   between an arbitrary number of wavetables.
 
 
-tables:
-- tbl: {
-  ak-variable: waveformArray,
-  comment: "An array of tables to read from. Note: the size of these tables must be a power of 2 (and the same size as well).",
-}
+tableArray: waveformArray
 
 parameters:
 - freq: {
@@ -29,7 +25,7 @@ parameters:
   au-unit: Hertz,
   default: 440,
   minimum: 0.0,
-  maximum: 22050.0
+  maximum: "22_050.0"
 }
 - amp: {
   ak-variable: amplitude,
@@ -47,7 +43,7 @@ parameters:
   au-unit: Hertz,
   default: 0.0,
   minimum: 0.0,
-  maximum: 1000.0
+  maximum: "1_000.0"
 }
 
 - detuneOffset: {
@@ -56,8 +52,8 @@ parameters:
     au-name: "Frequency offset (Hz)",
     au-unit: Hertz,
     default: 0,
-    minimum: -1000.0,
-    maximum: 1000.0
+    minimum: "-1_000.0",
+    maximum: "1_000.0"
 }
 
 - detuneScale: {
@@ -68,17 +64,5 @@ parameters:
     default: 1,
     minimum: 0.9,
     maximum: 1.11
-}
-
-constants:
-- nft: {
-  ak-variable: waveformCount,
-  comment: "Number of waveforms.",
-  default: 2
-}
-- phase: {
-  ak-variable: phase,
-  comment: "Initial phase of waveform, expects a value 0-1",
-  default: 0
 }
 

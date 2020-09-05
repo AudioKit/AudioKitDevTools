@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/PWM Oscillator/"
+swift-directory: "Generators/Oscillators/"
 
 sp-module: blsquare
 
@@ -10,7 +10,7 @@ summary: Band-limited square oscillator
 
 one-word-description: oscillator
 akalias: squareWave
-description:
+description: |
   Casio-style phase distortion with "pivot point" on the X axis This module is
   designed to emulate the classic phase distortion synthesis technique. From
   the mid 90's. The technique reads the first and second halves of the ftbl at
@@ -27,7 +27,7 @@ parameters:
   au-unit: Hertz,
   default: 440,
   minimum: 0.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - amp: {
   ak-variable: amplitude,
@@ -55,8 +55,8 @@ parameters:
     au-name: "Frequency offset (Hz)",
     au-unit: Hertz,
     default: 0,
-    minimum: -1000.0,
-    maximum: 1000.0
+    minimum: "-1_000.0",
+    maximum: "1_000.0"
 }
 
 - detuneScale: {

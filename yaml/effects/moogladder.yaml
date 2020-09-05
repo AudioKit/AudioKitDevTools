@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/Moog Ladder/"
+swift-directory: "Effects/Filters/"
 
 sp-module: moogladder
 akalias: moogLadderFilter
@@ -11,8 +11,10 @@ four-letter-code: mgld
 
 one-word-description: filter
 
-description:
-  Moog Ladder is an new digital implementation of the Moog ladder filter based on the work of Antti Huovilainen, described in the paper "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli).
+description: |
+  Moog Ladder is an new digital implementation of the Moog ladder filter 
+  based on the work of Antti Huovilainen, described in the paper 
+  "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli).
   This implementation is probably a more accurate digital representation of the original analogue filter.
 
 inputs:
@@ -27,9 +29,9 @@ parameters:
   au-name: "Cutoff Frequency (Hz)",
   au-unit: Hertz,
   comment: "Filter cutoff frequency.",
-  default: 1000,
+  default: "1_000",
   minimum: 12.0,
-  maximum: 20000.0
+  maximum: "20_000.0"
 }
 - res: {
   ak-variable: resonance,
