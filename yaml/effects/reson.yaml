@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: reson
 
-node: AKResonantFilter
+node: ResonantFilter
 
 four-letter-code: resn
 

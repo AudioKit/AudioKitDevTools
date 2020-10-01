@@ -2,7 +2,7 @@ swift-directory: "Signal\ Generators/Subtractive\ Synthesis/"
 
 sp-module: gbuzz
 
-node: AKAdditiveCosines
+node: AdditiveCosines
 
 summary: A set of harmonically related cosine partials.
 

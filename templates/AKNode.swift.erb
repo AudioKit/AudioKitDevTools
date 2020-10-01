@@ -5,13 +5,16 @@ import AVFoundation
 import CAudioKit
 
 /// <%= description %>
-public class <%= node %>: AKNode, AKComponent, AKToggleable {
+public class <%= node %>: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "<%= four_letter_code %>"
     public static let ComponentDescription = AudioComponentDescription(effect: "<%= four_letter_code %>")
 
-    public typealias AKAudioUnitType = InternalAU
+    /// Internal type of audio unit for this node
+    public typealias AudioUnitType = InternalAU
 
-    public private(set) var internalAU: AKAudioUnitType?
+    /// Internal audio unit 
+    public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
@@ -31,15 +34,18 @@ public class <%= node %>: AKNode, AKComponent, AKToggleable {
     ///   - <%= data["ak-variable"] %>: <%= data["comment"] %>
 <% end -%>
 <% end -%>
+<% if tables.count > 0 -%>
+    ///   - waveform: Shape of the tremolo curve
+<% end -%>
     ///
     public init(
 <% if inputs.count > 0 -%>
-        _ input: AKNode<% if (parameters + constants).count > 0 -%>,
+        _ input: Node<% if (parameters + constants).count > 0 -%>,
 <% end -%>
 <% end -%>
 <% (parameters + constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-        <%= data["ak-variable"] %>: AUValue = <%= data["default"] %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
+        <%= data["ak-variable"] %>: AUValue = <%= data["default"] %><%= ",\n" if i < (parameters + constants + tables).count - 1 %><% end %><% end %><% if tables.count > 0 -%>        waveform: Table = Table(.positiveSine)<% end %>
         ) {
         super.init(avAudioNode: AVAudioNode())
 
@@ -47,12 +53,20 @@ public class <%= node %>: AKNode, AKComponent, AKToggleable {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+<% if tables.count > 0 -%>
 
-<% (tables+parameters).each do |sp_parameter| -%>
+            audioUnit.setWavetable(waveform.content)
+<% end -%>
+<% if !post_setup.nil? -%>
+
+            <%= post_setup %>
+<% end -%>
+
+<% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
             self.<%= data["ak-variable"] %> = <%= data["ak-variable"] %>
 <% end -%>

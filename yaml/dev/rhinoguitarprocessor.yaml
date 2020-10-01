@@ -2,7 +2,7 @@ swift-directory: "Effects/Guitar Processors/"
 
 sp-module: rhino
 
-node: AKRhinoGuitarProcessor
+node: RhinoGuitarProcessor
 
 akalias: rhino
 

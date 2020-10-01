@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: tone
 
-node: AKToneFilter
+node: ToneFilter
 
 summary: Low-pass filter
 

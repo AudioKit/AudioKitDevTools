@@ -2,7 +2,7 @@ swift-directory: "Effects/Envelopes/"
 
 sp-module: adsr
 
-node: AKAmplitudeEnvelope
+node: AmplitudeEnvelope
 
 four-letter-code: adsr
 

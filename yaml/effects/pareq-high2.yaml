@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: pareq
 
-node: AKHighShelfParametricEqualizerFilter
+node: HighShelfParametricEqualizerFilter
 
 akalias: highShelfParametricEqualizerFilter
 

@@ -2,7 +2,7 @@ swift-directory: "Effects/Distortion/"
 
 sp-module: dist
 
-node: AKTanhDistortion
+node: TanhDistortion
 
 akalias: distort
 

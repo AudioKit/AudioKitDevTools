@@ -2,7 +2,7 @@ swift-directory: "Analysis/"
 
 sp-module: pitchamdf
 
-node: AKFrequencyTracker
+node: FrequencyTracker
 
 four-letter-code: amdf
 

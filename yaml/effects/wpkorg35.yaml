@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: wpkorg35
 
-node: AKKorgLowPassFilter
+node: KorgLowPassFilter
 
 akalias: korgLowPassFilter
 

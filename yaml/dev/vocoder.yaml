@@ -2,7 +2,7 @@ swift-directory: "Effects/Vocoder/"
 
 sp-module: vocoder
 
-node: AKVocoder
+node: Vocoder
 
 four-letter-code: vcdr
 

@@ -2,7 +2,7 @@ swift-directory: "Generators/Physical Models/"
 
 sp-module: pluck
 
-node: AKPluckedString
+node: PluckedString
 
 four-letter-code: pluk
 

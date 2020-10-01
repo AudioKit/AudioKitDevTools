@@ -2,7 +2,7 @@ swift-directory: "Effects/Reverb/"
 
 sp-module: jcrev
 
-node: AKChowningReverb
+node: ChowningReverb
 
 summary: John Chowning reverberator
 

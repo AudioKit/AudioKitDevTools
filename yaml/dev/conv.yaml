@@ -2,7 +2,7 @@ swift-directory: "/Effects/Reverb/"
 
 sp-module: conv
 
-node: AKConvolution
+node: Convolution
 
 type: Effect
 

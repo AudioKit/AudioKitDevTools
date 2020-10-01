@@ -3,7 +3,7 @@ swift-directory: "Signal\ Generators/Physical\ Models/"
 
 sp-module: bar
 
-node: AKMetalBarStrike
+node: MetalBarStrike
 
 summary: Physical model approximating the sound of a struck metal bar.
 

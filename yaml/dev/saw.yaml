@@ -2,7 +2,7 @@ swift-directory: "Generators/Oscillators/Sawtooth/"
 
 sp-module: blsaw
 
-node: AKSawtoothOscillator
+node: SawtoothOscillator
 
 four-letter-code: sawo
 
@@ -31,7 +31,7 @@ parameters:
   ak-variable: amplitude,
   comment: "Output Amplitude.",
   au-name: "Amplitude",
-  au-unit: Generic,
+  au-unit: Percent,
   default: 0.5,
   minimum: 0.0,
   maximum: 1.0

@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters//"
 
 sp-module: eqfil
 
-node: AKEqualizerFilter
+node: EqualizerFilter
 
 akalias: equalizerFilter
 

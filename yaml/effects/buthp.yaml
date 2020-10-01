@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: buthp
 
-node: AKHighPassButterworthFilter
+node: HighPassButterworthFilter
 
 summary: A high-pass Butterworth filter.
 

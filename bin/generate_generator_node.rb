@@ -29,6 +29,10 @@ def upper(str)
 	return str[0].upcase + str[1..-1]
 end
 
+def firstLower(str)
+    return str[0].downcase + str[1..-1]
+end
+
 ################
 # YAML Parsing #
 ################
@@ -51,6 +55,7 @@ constants           = o["constants"].to_a
 constant_parameters = o["constant-parameters"].to_a
 presets             = o["presets"].to_a
 type                = o["type"]
+c_functions         = o["c-functions"]
 
 ############################
 # Set Up Helpful Variables #

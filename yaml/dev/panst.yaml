@@ -2,7 +2,7 @@ swift-directory: "Mixing/"
 
 sp-module: panst
 
-node: AKPanner
+node: Panner
 
 summary: Stereo Panner
 

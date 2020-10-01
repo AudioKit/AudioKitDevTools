@@ -3,7 +3,7 @@ swift-directory: "Effects/Filters/"
 sp-module: moogladder
 akalias: moogLadderFilter
 
-node: AKMoogLadder
+node: MoogLadder
 
 summary: Moog Ladder Filter
 

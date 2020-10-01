@@ -3,7 +3,7 @@ swift-directory: "Effects/Filters/"
 sp-module: mode
 akalias: modalResonanceFilter
 
-node: AKModalResonanceFilter
+node: ModalResonanceFilter
 
 summary: A modal resonance filter used for modal synthesis.
 

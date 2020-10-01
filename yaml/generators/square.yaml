@@ -2,7 +2,7 @@ swift-directory: "Generators/Oscillators/"
 
 sp-module: blsquare
 
-node: AKPWMOscillator
+node: PWMOscillator
 
 four-letter-code: pwmo
 
@@ -43,7 +43,7 @@ parameters:
   ak-variable: pulseWidth,
   comment: "Duty cycle width (range 0-1).",
   au-name: "Pulse Width",
-  au-unit: Generic,
+  au-unit: Percent,
   default: 0.5,
   minimum: 0.0,
   maximum: 1.0

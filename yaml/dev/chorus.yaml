@@ -2,7 +2,7 @@ swift-directory: "Effects/Modulation/"
 
 sp-module: chorus
 
-node: AKChorus
+node: Chorus
 
 summary: Chorus
 

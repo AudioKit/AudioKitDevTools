@@ -3,7 +3,7 @@ swift-directory: "Generators/Oscillators/"
 sp-module: fosc
 sporth-module: fm
 
-node: AKFMOscillator
+node: FMOscillator
 
 summary:  Basic frequency modulated oscillator.
 

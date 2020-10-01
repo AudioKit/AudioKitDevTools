@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: tbvcf
 
-node: AKRolandTB303Filter
+node: RolandTB303Filter
 
 summary: "Emulation of the Roland TB-303 filter"
 
@@ -51,7 +51,7 @@ parameters:
   ak-variable: resonanceAsymmetry,
   comment: "Asymmetry of resonance. Value is between 0-1",
   au-name: "Resonance Asymmetry",
-  au-unit: Generic,
+  au-unit: Percent,
   default: 0.5,
   minimum: 0.0,
   maximum: 1.0

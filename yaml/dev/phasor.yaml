@@ -2,7 +2,7 @@ swift-directory: "Generators/Oscillators/"
 
 sp-module: phasor
 
-node: AKPhaseDistortionOscillator
+node: PhaseDistortionOscillator
 
 akalias: phasor
 

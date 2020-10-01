@@ -1,0 +1,106 @@
+import AudioKit
+import SwiftUI
+import AudioToolbox
+
+struct <%= node %>Data {
+    var isPlaying: Bool = false
+<% (parameters + constants).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    var <%= data["ak-variable"] %>: AUValue = <%= data["default"] %>
+<% end -%>
+<% end -%>
+    var rampDuration: AUValue = 0.02
+}
+
+class <%= node %>Conductor: ObservableObject, AKKeyboardDelegate {
+
+    let engine = AKEngine()
+
+    func noteOn(note: MIDINoteNumber) {
+        data.isPlaying = true
+        data.frequency = note.midiNoteToFrequency()
+    }
+
+    func noteOff(note: MIDINoteNumber) {
+        data.isPlaying = false
+    }
+
+    @Published var data = <%= node %>Data() {
+        didSet {
+            if data.isPlaying {
+                <%= one_word_desc.downcase %>.start()
+<% (parameters + constants).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+                <%= one_word_desc.downcase %>.$<%= data["ak-variable"] %>.ramp(to: data.<%= data["ak-variable"] %>, duration: data.rampDuration)
+<% end -%>
+<% end -%>
+            } else {
+                <%= one_word_desc.downcase %>.amplitude = 0.0
+            }
+        }
+    }
+
+    var <%= one_word_desc.downcase %> = <%= node %>()
+
+    let plot: AKNodeOutputPlot
+
+    init() {
+        plot = AKNodeOutputPlot(<%= one_word_desc.downcase %>)
+        engine.output = <%= one_word_desc.downcase %>
+    }
+
+    func start() {
+        plot.start()
+        <%= one_word_desc.downcase %>.amplitude = 0.2
+        do {
+            try engine.start()
+        } catch let err {
+            AKLog(err)
+        }
+    }
+
+    func stop() {
+        data.isPlaying = false
+        <%= one_word_desc.downcase %>.stop()
+        engine.stop()
+    }
+}
+
+struct <%= node %>View: View {
+    @ObservedObject var conductor  = <%= node %>Conductor()
+
+    var body: some View {
+        VStack {
+            Text(self.conductor.data.isPlaying ? "STOP" : "START").onTapGesture {
+                self.conductor.data.isPlaying.toggle()
+            }
+<% (parameters + constants).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+            ParameterSlider(text: "<%= data["au-name"] %>",
+                            parameter: self.$conductor.data.<%= data["ak-variable"] %>,
+                            range: <%= data["minimum"] %>...<%= data["maximum"] %>).padding()
+<% end -%>
+<% end -%>
+            ParameterSlider(text: "Ramp Duration",
+                            parameter: self.$conductor.data.rampDuration,
+                            range: 0...4,
+                            format: "%0.2f").padding(5)
+            PlotView(view: conductor.plot)
+            KeyboardView(delegate: conductor)
+
+        }.navigationBarTitle(Text("<%= node %>"))
+        .onAppear {
+            self.conductor.start()
+        }
+        .onDisappear {
+            self.conductor.stop()
+        }
+    }
+}
+
+struct <%= node %>View_Previews: PreviewProvider {
+    static var previews: some View {
+        <%= node %>View()
+    }
+}
+

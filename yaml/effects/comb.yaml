@@ -2,7 +2,7 @@ swift-directory: "Effects/Reverb//"
 
 sp-module: comb
 
-node: AKCombFilterReverb
+node: CombFilterReverb
 
 akalias: combFilterReverb
 summary: Reverberates an input signal with a “colored” frequency response
@@ -22,6 +22,7 @@ c-functions: |2
           public func setLoopDuration(_ duration: AUValue) {
               akCombFilterReverbSetLoopDuration(dsp, duration)
           }
+post-setup: audioUnit.setLoopDuration(loopDuration)
 
 inputs:
 - source: {

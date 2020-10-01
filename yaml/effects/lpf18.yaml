@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: lpf18
 
-node: AKThreePoleLowpassFilter
+node: ThreePoleLowpassFilter
 
 akalias: threePoleLowPassFilter
 

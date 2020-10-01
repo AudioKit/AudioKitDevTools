@@ -3,9 +3,9 @@
 require 'erb'
 require 'active_support/all'
 
-def new_partial(template, name)
-    ERB.new(File.new("templates/#{template}/_#{name}.erb").read, nil, '-' ).result
-end
+# def new_partial(template, name)
+#     ERB.new(File.new("templates/#{template}/_#{name}.erb").read, nil, '-' ).result
+# end
 
 class String
   def uncapitalize
@@ -69,7 +69,7 @@ end
 # puts parameters
 
 # output_folder = "../AudioKit/Common/Nodes/Effects/Distortion/AK#{au_name}/"
-parameter_docs_partial = new_partial("AKAUNode.swift", "parameter_docs")
+# parameter_docs_partial = new_partial("AKAUNode.swift")
 File.open("templates/AKAUNode.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
     # File.open("#{output_folder}/AK#{au_name}.swift", 'w+') {|f| f.write(erb.result) }

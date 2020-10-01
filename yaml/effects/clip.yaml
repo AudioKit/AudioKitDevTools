@@ -2,7 +2,7 @@ swift-directory: "Effects/Distortion/"
 
 sp-module: clip
 
-node: AKClipper
+node: Clipper
 
 akalias: clip
 

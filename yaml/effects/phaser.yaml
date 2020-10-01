@@ -2,7 +2,7 @@ swift-directory: "Effects/Modulation/"
 
 sp-module: phaser
 
-node: AKPhaser
+node: Phaser
 
 four-letter-code: phas
 

@@ -2,7 +2,7 @@ swift-directory: "Signal\ Generators/Musical\ Controls/"
 
 sp-module: metro
 
-node: AKMetronome
+node: Metronome
 
 summary: Generator of a series of 1-sample ticks at a regular rate.
 

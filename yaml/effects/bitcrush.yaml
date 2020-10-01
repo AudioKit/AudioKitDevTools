@@ -2,7 +2,7 @@ swift-directory: "Effects/Distortion/"
 
 sp-module: bitcrush
 
-node: AKBitCrusher
+node: BitCrusher
 
 akalias: bitCrush
 

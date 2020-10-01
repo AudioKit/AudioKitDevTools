@@ -4,10 +4,11 @@
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+            self.stop()
 <% if tables.count > 0 %>
             audioUnit.setWavetable(waveform.content)
 <% end -%>

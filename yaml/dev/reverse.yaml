@@ -2,7 +2,7 @@ swift-directory: "Effects/Effects/"
 
 sp-module: reverse
 
-node: AKBackmask
+node: Backmask
 
 summary: Store a signal inside a buffer and play it back reversed.
 

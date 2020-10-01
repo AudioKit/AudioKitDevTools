@@ -2,7 +2,7 @@ swift-directory: "Effects/Dynamics/"
 
 sp-module: compressor
 
-node: AKDynamicRangeCompressor
+node: DynamicRangeCompressor
 
 four-letter-code: cpsr
 

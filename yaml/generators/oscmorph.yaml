@@ -2,7 +2,7 @@ swift-directory: "Generators/Oscillators/"
 
 sp-module: oscmorph
 
-node: AKMorphingOscillator
+node: MorphingOscillator
 
 four-letter-code: morf
 
@@ -43,7 +43,7 @@ parameters:
   au-unit: Hertz,
   default: 0.0,
   minimum: 0.0,
-  maximum: "1_000.0"
+  maximum: "3.0"
 }
 
 - detuneOffset: {

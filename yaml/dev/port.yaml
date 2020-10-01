@@ -2,7 +2,7 @@ swift-directory: "Signal\ Generators/Musical\ Controls/"
 
 sp-module: port
 
-node: AKPortamento
+node: Portamento
 
 summary: Applies portamento smoothing to a step-valued control signal.
 

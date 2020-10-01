@@ -2,7 +2,7 @@ swift-directory: "Generators/Physical Models/"
 
 sp-module: drip
 
-node: AKDrip
+node: Drip
 
 four-letter-code: drip
 

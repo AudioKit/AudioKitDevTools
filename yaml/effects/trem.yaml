@@ -2,7 +2,7 @@ swift-directory: "Effects/Envelopes/"
 
 sp-module: trem
 
-node: AKTremolo
+node: Tremolo
 
 four-letter-code: trem
 
@@ -40,7 +40,7 @@ parameters:
   ak-variable: depth,
   comment: "Depth",
   au-name: "Depth",
-  au-unit: Generic,
+  au-unit: Percent,
   default: 1.0,
   minimum: 0.0,
   maximum: 1.0

@@ -93,20 +93,18 @@ end
 ###############
 
 # Set up the output folder relative to the current directory and create it if necessary
-output_folder = "../AudioKit/Sources/AudioKit/Nodes/#{output_folder}/"
-FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
+output_folder = "../AudioKitExample/Examples/Examples/Views/"
 
 ################
-# AKNode.swift #
+# OscillatorExample.swift #
 ################
 audio_unit_setup_partial = new_partial("audio_unit_setup")
 parameters_partial       = new_partial("parameters")
 internal_au_partial      = new_partial("internal_au")
 
-File.open("templates/AKNode.swift.erb") { |template|
+File.open("templates/Example.swift.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{node}.swift", 'w+') {|f| f.write(erb.result) }
-	# puts erb.result
+	# File.open("#{output_folder}/#{node}.swift", 'w+') {|f| f.write(erb.result) }
 }
 
 ################

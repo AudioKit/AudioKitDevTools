@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: butbp
 
-node: AKBandPassButterworthFilter
+node: BandPassButterworthFilter
 
 summary: A band-pass Butterworth filter.
 

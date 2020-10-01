@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: butbr
 
-node: AKBandRejectButterworthFilter
+node: BandRejectButterworthFilter
 
 summary: A band-reject Butterworth filter.
 

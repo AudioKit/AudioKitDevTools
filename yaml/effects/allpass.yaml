@@ -4,7 +4,7 @@ sp-module: allpass
 
 akalias: reverberateWithFlatFrequencyResponse
 
-node: AKFlatFrequencyResponseReverb
+node: FlatFrequencyResponseReverb
 
 summary: All-pass filter, often used for the creation of reverb modules.
 
@@ -21,6 +21,7 @@ c-functions: |2
           public func setLoopDuration(_ duration: AUValue) {
               akFlatFrequencyResponseSetLoopDuration(dsp, duration)
           }
+post-setup: audioUnit.setLoopDuration(loopDuration)
 
 inputs:
 - source: {

@@ -2,7 +2,7 @@ swift-directory: "Signal\ Generators/Physical\ Models/"
 
 sp-module: drip
 
-node: AKDroplet
+node: Droplet
 
 summary: Semi-physical model of a water drop.
 

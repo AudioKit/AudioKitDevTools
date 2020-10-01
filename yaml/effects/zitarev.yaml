@@ -2,7 +2,7 @@ swift-directory: "Effects/Reverb/"
 
 sp-module: zitarev
 
-node: AKZitaReverb
+node: ZitaReverb
 
 four-letter-code: zita
 
@@ -106,7 +106,7 @@ parameters:
   ak-variable: dryWetMix,
   comment: "0 = all dry, 1 = all wet",
   au-name: "0 = all dry, 1 = all wet",
-  au-unit: Generic,
+  au-unit: Percent,
   default: 1.0,
   minimum: 0.0,
   maximum: 1.0

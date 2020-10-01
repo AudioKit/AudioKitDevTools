@@ -2,7 +2,7 @@ swift-directory: "Playback/"
 
 sp-module: mincer
 
-node: AKPhaseLockedVocoder
+node: PhaseLockedVocoder
 
 four-letter-code: minc
 

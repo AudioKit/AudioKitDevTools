@@ -2,7 +2,7 @@ swift-directory: "Signal\ Generators/Random\ Generators/"
 
 sp-module: random
 
-node: AKRandomNumbers
+node: RandomNumbers
 
 summary: Random Number Generator
 

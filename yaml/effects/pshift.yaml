@@ -2,7 +2,7 @@ swift-directory: "Effects/Pitch Shifter/"
 
 sp-module: pshift
 
-node: AKPitchShifter
+node: PitchShifter
 
 four-letter-code: pshf
 

@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: butlp
 
-node: AKLowPassButterworthFilter
+node: LowPassButterworthFilter
 
 summary: A low-pass Butterworth filter.
 

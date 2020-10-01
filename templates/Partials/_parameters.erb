@@ -1,6 +1,7 @@
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-    public static let <%= data["ak-variable"] %>Def = AKNodeParameterDef(
+    /// Specification details for <%= data["ak-variable"] %>
+    public static let <%= data["ak-variable"] %>Def = NodeParameterDef(
         identifier: "<%= data["ak-variable"] %>",
         name: "<%= data["au-name"] %>",
         address: akGetParameterAddress("<%= node %>Parameter<%= data["ak-variable"].camelcase %>"),

@@ -2,7 +2,7 @@ swift-directory: "Signal\ Generators/Envelopes/"
 
 sp-module: tenv
 
-node: AKTriggeredAHDEnvelope
+node: TriggeredAHDEnvelope
 
 summary: Trigger based linear AHD envelope
 

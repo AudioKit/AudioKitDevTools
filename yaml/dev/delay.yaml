@@ -2,7 +2,7 @@ swift-directory: "Effects/Delay/"
 
 sp-module: delay
 
-node: AKDelay
+node: Delay
 
 akalias: delay
 
@@ -26,7 +26,7 @@ parameters:
   ak-variable: feedback,
   comment: "Feedback amount.",
   au-name: "Feedback",
-  au-unit: Generic,
+  au-unit: Percent,
   default: 0.0,
   minimum: 0.0,
   maximum: 1.0

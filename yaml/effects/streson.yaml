@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: streson
 
-node: AKStringResonator
+node: StringResonator
 
 four-letter-code: stre
 
@@ -37,7 +37,7 @@ parameters:
   ak-variable: feedback,
   comment: "Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.",
   au-name: "Feedback (%)",
-  au-unit: Generic,
+  au-unit: Percent,
   default: 0.95,
   minimum: 0.0,
   maximum: 1.0

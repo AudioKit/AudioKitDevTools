@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: dcblock
 
-node: AKDCBlock
+node: DCBlock
 
 akalias: dcBlock
 

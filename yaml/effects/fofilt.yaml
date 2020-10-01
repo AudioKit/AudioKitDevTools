@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: fofilt
 
-node: AKFormantFilter
+node: FormantFilter
 
 summary: Formant filter
 

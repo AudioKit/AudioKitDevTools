@@ -2,7 +2,7 @@ swift-directory: "Effects/Guitar Processors/"
 
 sp-module: autowah
 
-node: AKAutoWah
+node: AutoWah
 
 akalias: autoWah
 
@@ -25,7 +25,7 @@ parameters:
   ak-variable: wah,
   comment: "Wah Amount",
   au-name: "Wah Amount",
-  au-unit: Generic,
+  au-unit: Percent,
   default: 0.0,
   minimum: 0.0,
   maximum: 1.0
@@ -43,7 +43,7 @@ parameters:
   ak-variable: amplitude,
   comment: "Overall level",
   au-name: "Overall level",
-  au-unit: Generic,
+  au-unit: Percent,
   default: 0.1,
   minimum: 0.0,
   maximum: 1.0

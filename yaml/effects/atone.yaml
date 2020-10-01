@@ -2,7 +2,7 @@ swift-directory: "Effects/Filters/"
 
 sp-module: atone
 
-node: AKToneComplementFilter
+node: ToneComplementFilter
 
 akalias: highPassFilter
 

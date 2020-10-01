@@ -2,7 +2,7 @@ swift-directory: "Effects/Delay/"
 
 sp-module: vdelay
 
-node: AKVariableDelay
+node: VariableDelay
 
 akalias: variableDelay
 
@@ -19,7 +19,7 @@ c-functions: |2
           public func setMaximumTime(_ maximumTime: AUValue) {
               akVariableDelaySetMaximumTime(dsp, maximumTime)
           }
-
+post-setup: audioUnit.setMaximumTime(maximumTime)
 inputs:
 - source: {
   ak-variable: input,
