@@ -5,13 +5,13 @@ import AVFoundation
 import CAudioKit
 
 /// <%= description %>
-public class <%= node %>: Node, AudioUnitContainer, Tappable, Toggleable {
+public class <%= node %>: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "<%= four_letter_code %>"
     public static let ComponentDescription = AudioComponentDescription(generator: "<%= four_letter_code %>")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -29,8 +29,6 @@ public class <%= node %>: Node, AudioUnitContainer, Tappable, Toggleable {
 
 <% end -%>
 <%= parameters_partial -%>
-<%= internal_au_partial %>
-
     // MARK: - Initialization
 
     /// Initialize this <%= one_word_desc %> node
@@ -61,7 +59,7 @@ public class <%= node %>: Node, AudioUnitContainer, Tappable, Toggleable {
 <% end -%>
 <% (parameters + constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-        <%= data["ak-variable"] %>: AUValue = <%= data["default"] %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
+        <%= data["ak-variable"] %>: AUValue = <%= data["ak-variable"] %>Def.initialValue<%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
     ) {
 <%= audio_unit_setup_partial -%>
     }

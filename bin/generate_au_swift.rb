@@ -13,6 +13,10 @@ class String
   end
 end
 
+def upper(str)
+    return str[0].upcase + str[1..-1]
+end
+
 swift_file = ARGV[0]
 
 au_name = /AU([A-z0-9]+).swift/.match(swift_file).captures[0]
@@ -45,6 +49,19 @@ File.open( swift_file ).each do |line|
         max     = "22050"
         default = regex.match(line).captures[3]
     end
+
+    if type == "Hz" 
+        type = "Hertz"
+    end
+
+    if type == "dB" 
+        type = "decibels"
+    end
+
+    if type == "Secs" || type == "secs"
+        type = "seconds"
+    end
+
 
     regex = /public var ([A-z0-9]+)_([A-z0-9]+)/
     if line =~ regex

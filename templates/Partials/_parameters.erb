@@ -5,11 +5,12 @@
         identifier: "<%= data["ak-variable"] %>",
         name: "<%= data["au-name"] %>",
         address: akGetParameterAddress("<%= node %>Parameter<%= data["ak-variable"].camelcase %>"),
+        initialValue: <%= data["default"] %>,
         range: <%= data["minimum"] %> ... <%= data["maximum"] %>,
         unit: .<%= firstLower(data["au-unit"]) %>,
         flags: .default)
 
     /// <%= data["comment"] %>
-    @Parameter public var <%= data["ak-variable"] %>: AUValue
+    @Parameter(<%= data["ak-variable"] %>Def) public var <%= data["ak-variable"] %>: AUValue
 <% end %>
 <% end -%>

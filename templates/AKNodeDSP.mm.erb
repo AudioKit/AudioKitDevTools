@@ -126,7 +126,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(<%= node %>DSP)
+AK_REGISTER_DSP2(<%= node %>DSP)
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 AK_REGISTER_PARAMETER(<%= node %>Parameter<%= data["ak-variable"].camelcase %>)

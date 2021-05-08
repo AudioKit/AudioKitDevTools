@@ -20,7 +20,7 @@ parameters:
   ak-variable: amplitude,
   comment: "Amplitude. (Value between 0-1).",
   au-name: "Amplitude",
-  au-unit: Percent,
+  au-unit: Generic,
   default: 1,
   minimum: 0.0,
   maximum: 1.0

@@ -10,7 +10,6 @@ one-word-description: Bar
 
 description: |
   Physical model approximating the sound of a struck metal bar
-  TODO This node needs to have tests
 
 parameters:
 - bcL: {

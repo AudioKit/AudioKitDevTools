@@ -21,7 +21,6 @@ control-block: |2
 description: |
     Physical model of the sound of dripping water. 
     When triggered, it will produce a droplet of water.
-    TODO This node needs to have tests.
 
 parameters:
 - num_tubes: {

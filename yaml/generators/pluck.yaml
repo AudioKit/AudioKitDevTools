@@ -12,7 +12,6 @@ one-word-description: pluck
 
 description: |
   Karplus-Strong plucked string instrument.
-  TODO This node needs tests
 
 parameters:
 - freq: {

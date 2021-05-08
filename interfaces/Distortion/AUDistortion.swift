@@ -7,6 +7,16 @@ public var kDistortionParam_Decay: AudioUnitParameterID { get }
 // Global, Percent, 0 -> 100, 50
 public var kDistortionParam_DelayMix: AudioUnitParameterID { get }
 
+// Global, Hertz, 0.5 -> 8000, 100
+public var kDistortionParam_RingModFreq1: AudioUnitParameterID { get }
+// Global, Hertz, 0.5 -> 8000, 100
+public var kDistortionParam_RingModFreq2: AudioUnitParameterID { get }
+// Global, Percent, 0 -> 100, 50
+public var kDistortionParam_RingModBalance: AudioUnitParameterID { get }
+// Global, Percent, 0 -> 100, 0
+public var kDistortionParam_RingModMix: AudioUnitParameterID { get }
+
+
 // Global, Percent, 0 -> 100, 50
 public var kDistortionParam_Decimation: AudioUnitParameterID { get }
 // Global, Percent, 0 -> 100, 0
@@ -23,14 +33,6 @@ public var kDistortionParam_CubicTerm: AudioUnitParameterID { get }
 // Global, Percent, 0 -> 100, 50
 public var kDistortionParam_PolynomialMix: AudioUnitParameterID { get }
 
-// Global, Hertz, 0.5 -> 8000, 100
-public var kDistortionParam_RingModFreq1: AudioUnitParameterID { get }
-// Global, Hertz, 0.5 -> 8000, 100
-public var kDistortionParam_RingModFreq2: AudioUnitParameterID { get }
-// Global, Percent, 0 -> 100, 50
-public var kDistortionParam_RingModBalance: AudioUnitParameterID { get }
-// Global, Percent, 0 -> 100, 0
-public var kDistortionParam_RingModMix: AudioUnitParameterID { get }
 
 // Global, dB, -80 -> 20, -6
 public var kDistortionParam_SoftClipGain: AudioUnitParameterID { get }
