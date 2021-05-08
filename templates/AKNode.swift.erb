@@ -16,6 +16,11 @@ public class <%= node %>: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+<% if inputs.count > 0 -%>
+    let input: Node
+    override public var connections: [Node] { [input] }
+<% end -%>
+
     // MARK: - Parameters
 
 <%= parameters_partial -%>
@@ -45,6 +50,9 @@ public class <%= node %>: Node, AudioUnitContainer, Toggleable {
 <% sp_parameter.each do  |sp_var, data| -%>
         <%= data["ak-variable"] %>: AUValue = <%= data["ak-variable"] %>Def.defaultValue<%= ",\n" if i < (parameters + constants + tables).count - 1 %><% end %><% end %><% if tables.count > 0 -%>        waveform: Table = Table(.positiveSine)<% end %>
         ) {
+<% if inputs.count > 0 -%>
+        self.input = input
+<% end -%>
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -69,10 +77,7 @@ public class <%= node %>: Node, AudioUnitContainer, Toggleable {
 <% end -%>
 <% end -%>
         }
-<% if inputs.count > 0 -%>
-        connections.append(input)
-<% end -%>
-    }
+   }
 <% if inputs.count == 0 -%>
     /// Function create an identical new node for use in creating polyphonic instruments
     public func copy() -> <%= node %> {

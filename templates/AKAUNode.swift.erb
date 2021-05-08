@@ -12,13 +12,16 @@ open class <%= au_name %>: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_<%= au_name %>))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
 <% parameters.each_with_index do |parameter, i| -%>
     /// Specification details for <%= parameter[:variable] %>
     public static let <%= parameter[:variable] %>Def = NodeParameterDef(
         identifier: "<%= parameter[:variable] %>",
         name: "<%= parameter[:variable].titlecase %>",
         address: <%= i %>,
-        initialValue: <%= parameter[:default] %>,
+        defaultValue: <%= parameter[:default] %>,
         range: <%= parameter[:min] %> ... <%= parameter[:max] %>,
         unit: .<%= parameter[:type].downcase %>,
         flags: .default)
@@ -40,10 +43,10 @@ open class <%= au_name %>: Node, Toggleable {
     public init(
         _ input: Node,
 <% parameters.each_with_index do |parameter, i| -%>
-        <%= parameter[:variable] %>: AUValue = <%= parameter[:variable] %>Def.initialValue<%= ",\n" if i < parameters.count - 1 -%>
+        <%= parameter[:variable] %>: AUValue = <%= parameter[:variable] %>Def.defaultValue<%= ",\n" if i < parameters.count - 1 -%>
 <% end %>) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 
