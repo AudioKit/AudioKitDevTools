@@ -59,7 +59,7 @@ public class <%= node %>: Node, AudioUnitContainer, Toggleable {
 <% end -%>
 <% (parameters + constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-        <%= data["ak-variable"] %>: AUValue = <%= data["ak-variable"] %>Def.initialValue<%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
+        <%= data["ak-variable"] %>: AUValue = <%= data["ak-variable"] %>Def.defaultValue<%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>
     ) {
 <%= audio_unit_setup_partial -%>
     }
