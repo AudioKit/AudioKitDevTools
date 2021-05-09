@@ -7,8 +7,7 @@
         address: akGetParameterAddress("<%= node %>Parameter<%= data["ak-variable"].camelcase %>"),
         defaultValue: <%= data["default"] %>,
         range: <%= data["minimum"] %> ... <%= data["maximum"] %>,
-        unit: .<%= firstLower(data["au-unit"]) %>,
-        flags: .default)
+        unit: .<%= firstLower(data["au-unit"]) %>)
 
     /// <%= data["comment"] %>
     @Parameter(<%= data["ak-variable"] %>Def) public var <%= data["ak-variable"] %>: AUValue

@@ -1,26 +1,23 @@
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "<%= four_letter_code %>")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
+        }
+        self.stop()
 <% if tables.count > 0 %>
-            audioUnit.setWavetable(waveform.content)
+        audioUnit.setWavetable(waveform.content)
 <% end -%>
 
 <% unless tableArray.nil? -%>
-            for (i, waveform) in <%= tableArray %>.enumerated() {
-                self.internalAU?.setWavetable(waveform.content, index: i)
-            }
-            self.<%= tableArray %> = <%= tableArray %> 
+        for (i, waveform) in <%= tableArray %>.enumerated() {
+            audioUnit.setWavetable(waveform.content, index: i)
+        }
+        self.<%= tableArray %> = <%= tableArray %> 
 <% end -%>
 <% (tables+parameters).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-            self.<%= data["ak-variable"] %> = <%= data["ak-variable"] %>
+        self.<%= data["ak-variable"] %> = <%= data["ak-variable"] %>
 <% end -%>
 <% end -%>
-        }
