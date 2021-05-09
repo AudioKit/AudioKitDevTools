@@ -1,0 +1,47 @@
+swift-directory: "/Mixing/"
+
+sp-module: apan
+
+node: AutoPanner 
+
+four-letter-code: apan 
+
+summary:  Auto Panner 
+
+one-word-description:  auto panner
+
+description:  Table-lookup panning with linear interpolation
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+tables:
+- tbl: {
+  ak-variable: waveform,
+  comment: "Shape of the panner (default to sine)",
+  default: sine
+}
+
+parameters:
+- freq: {
+  ak-variable: frequency,
+  comment: "Frequency (Hz)",
+  au-name: "Frequency (Hz)",
+  au-unit: Hertz,
+  default: 10.0,
+  minimum: 0.0,
+  maximum: 100.0
+}
+
+- depth: {
+  ak-variable: depth,
+  comment: "Depth",
+  au-name: "Depth",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1.0
+}
