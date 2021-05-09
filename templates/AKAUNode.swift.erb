@@ -6,25 +6,23 @@ import CAudioKit
 
 /// AudioKit version of Apple's <%= au_name %> Audio Unit
 ///
-open class <%= au_name %>: Node, Toggleable {
+open class <%= au_name %>: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_<%= au_name %>))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_<%= real_au_name %>)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
 <% parameters.each_with_index do |parameter, i| -%>
     /// Specification details for <%= parameter[:variable] %>
     public static let <%= parameter[:variable] %>Def = NodeParameterDef(
         identifier: "<%= parameter[:variable] %>",
         name: "<%= parameter[:variable].titlecase %>",
-        address: <%= i %>,
+        address: <%= parameter[:index] == "" ? i : parameter[:index] %>,
         defaultValue: <%= parameter[:default] %>,
         range: <%= parameter[:min] %> ... <%= parameter[:max] %>,
-        unit: .<%= parameter[:type].downcase %>,
-        flags: .default)
+        unit: .<%= parameter[:type].downcase %>)
 
     /// <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
     @Parameter(<%= parameter[:variable] %>Def) public var <%= parameter[:variable] %>: AUValue
@@ -46,7 +44,6 @@ open class <%= au_name %>: Node, Toggleable {
         <%= parameter[:variable] %>: AUValue = <%= parameter[:variable] %>Def.defaultValue<%= ",\n" if i < parameters.count - 1 -%>
 <% end %>) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 

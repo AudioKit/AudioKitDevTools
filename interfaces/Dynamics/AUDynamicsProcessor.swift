@@ -20,8 +20,3 @@ public var kDynamicsProcessorParam_ReleaseTime: AudioUnitParameterID { get }
 
 // Global, dB, -40->40, 0
 public var kDynamicsProcessorParam_MasterGain: AudioUnitParameterID { get }
-
-// Global, dB, read-only parameter
-public var kDynamicsProcessorParam_CompressionAmount: AudioUnitParameterID { get }
-public var kDynamicsProcessorParam_InputAmplitude: AudioUnitParameterID { get }
-public var kDynamicsProcessorParam_OutputAmplitude: AudioUnitParameterID { get }

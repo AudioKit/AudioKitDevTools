@@ -17,11 +17,7 @@ description: |
   independent and is determined by the reverberation time (defined as the time in seconds for a signal to
   decay to 1/1000, or 60dB down from its original amplitude).  Output will begin to appear immediately.
 
-c-functions: |2
-          public func setLoopDuration(_ duration: AUValue) {
-              akFlatFrequencyResponseSetLoopDuration(dsp, duration)
-          }
-post-setup: audioUnit.setLoopDuration(loopDuration)
+post-setup: akFlatFrequencyResponseSetLoopDuration(auBase.dsp, loopDuration)
 
 inputs:
 - source: {

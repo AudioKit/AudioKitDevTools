@@ -18,11 +18,7 @@ description: |
  or 60dB down from its original amplitude). Output from a comb filter will appear
  only after loopDuration seconds.
 
-c-functions: |2
-          public func setLoopDuration(_ duration: AUValue) {
-              akCombFilterReverbSetLoopDuration(dsp, duration)
-          }
-post-setup: audioUnit.setLoopDuration(loopDuration)
+post-setup: akCombFilterReverbSetLoopDuration(auBase.dsp, loopDuration)
 
 inputs:
 - source: {

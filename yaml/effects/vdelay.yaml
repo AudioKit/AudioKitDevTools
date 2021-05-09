@@ -15,11 +15,8 @@ one-word-description: delay
 description:
   A delay line with cubic interpolation.
 
-c-functions: |2
-          public func setMaximumTime(_ maximumTime: AUValue) {
-              akVariableDelaySetMaximumTime(dsp, maximumTime)
-          }
-post-setup: audioUnit.setMaximumTime(maximumTime)
+post-setup: akVariableDelaySetMaximumTime(auBase.dsp, maximumTime)
+
 inputs:
 - source: {
   ak-variable: input,

@@ -29,8 +29,16 @@ type = ""
 min = ""
 max = ""
 default = ""
+real_au_name = au_name
+index = ""
 
 File.open( swift_file ).each do |line|
+
+    // 
+    regex = /^\/\/ Parameters for the AU([A-z0-9]+) unit/
+    if line =~ regex
+        real_au_name = regex.match(line).captures[0]
+    end
 
     regex = /^\/\/ ([A-z0-9]+), ([A-z0-9]+), ([\-0-9\.]+)\s*->\s*([\-0-9\.]+), ([\-0-9\.]+)/
     if line =~ regex
@@ -39,6 +47,16 @@ File.open( swift_file ).each do |line|
         min     = regex.match(line).captures[2]
         max     = regex.match(line).captures[3]
         default = regex.match(line).captures[4]
+    end
+
+    regex = /^\/\/ ([A-z0-9]+), ([A-z0-9]+), ([\-0-9\.]+)\s*->\s*([\-0-9\.]+), ([\-0-9\.]+), ([\-0-9\.]+)/
+    if line =~ regex
+        scope   = regex.match(line).captures[0]
+        type    = regex.match(line).captures[1]
+        min     = regex.match(line).captures[2]
+        max     = regex.match(line).captures[3]
+        default = regex.match(line).captures[4]
+        index   = regex.match(line).captures[5]
     end
 
     regex = /^\/\/ ([A-z0-9]+), ([A-z0-9]+), ([\-0-9\.]+)\s*->\s*\(SampleRate\/2\), ([\-0-9\.]+)/
@@ -77,7 +95,8 @@ File.open( swift_file ).each do |line|
             :type => type,
             :min => min,
             :max => max,
-            :default => default
+            :default => default,
+            :index => index
         })
     end
 

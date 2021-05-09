@@ -1,4 +1,4 @@
-// Parameters for the AUHipass unit
+// Parameters for the AUHighPassFilter unit
 
 // Global, Hz, 10->(SampleRate/2), 6900
 public var kHipassParam_CutoffFrequency: AudioUnitParameterID { get }

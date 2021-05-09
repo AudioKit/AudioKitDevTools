@@ -1,4 +1,4 @@
-// Parameters for the AULowpass unit
+// Parameters for the AULowPassFilter unit
 
 // Global, Hz, 10->(SampleRate/2), 6900
 public var kLowPassParam_CutoffFrequency: AudioUnitParameterID { get }

@@ -5,11 +5,12 @@ import AVFoundation
 import CAudioKit
 
 /// <%= description %>
-public class <%= node %>: NodeBase {
+public class <%= node %>: Node {
 
 <% if inputs.count > 0 -%>
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "<%= four_letter_code %>")
 <% end -%>
 
     // MARK: - Parameters
@@ -29,7 +30,7 @@ public class <%= node %>: NodeBase {
 <% end -%>
 <% end -%>
 <% if tables.count > 0 -%>
-    ///   - waveform: Shape of the tremolo curve
+    ///   - waveform: Shape of the curve
 <% end -%>
     ///
     public init(
@@ -37,16 +38,24 @@ public class <%= node %>: NodeBase {
         _ input: Node<% if (parameters + constants).count > 0 -%>,
 <% end -%>
 <% end -%>
-<% (parameters + constants).each_with_index do |sp_parameter, i| -%>
+<% parameters.each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-        <%= data["ak-variable"] %>: AUValue = <%= data["ak-variable"] %>Def.defaultValue<%= ",\n" if i < (parameters + constants + tables).count - 1 %><% end %><% end %><% if tables.count > 0 -%>        waveform: Table = Table(.positiveSine)<% end %>
+        <%= data["ak-variable"] %>: AUValue = <%= data["ak-variable"] %>Def.defaultValue<%= ",\n" if i < (parameters + constants + tables).count - 1 -%>
+<% end -%>
+<% end -%>
+<% constants.each_with_index do |sp_parameter, i| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+        <%= data["ak-variable"] %>: AUValue = <%= data["default"] %><%= ",\n" if i < (constants + tables).count - 1 -%>
+<% end -%>
+<% end -%>
+<% if tables.count > 0 -%>
+        waveform: Table = Table(.positiveSine)<% end %>
         ) {
 <% if inputs.count > 0 -%>
         self.input = input
 <% end -%>
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "<%= four_letter_code %>")
+        setupParameters()
 <% if !post_setup.nil? -%>
 
         <%= post_setup %>

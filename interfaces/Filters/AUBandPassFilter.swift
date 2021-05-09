@@ -1,4 +1,4 @@
-// Parameters for the AUBandpass unit
+// Parameters for the AUBandPassFilter unit
 
 // Global, Hz, 20->(SampleRate/2), 5000
 public var kBandpassParam_CenterFrequency: AudioUnitParameterID { get }

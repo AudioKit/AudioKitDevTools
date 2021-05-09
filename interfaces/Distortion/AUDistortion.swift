@@ -1,4 +1,4 @@
-// Parameters for the Distortion unit
+// Parameters for the AUDistortion unit
 
 // Global, Milliseconds, 0.1 -> 500, 0.1
 public var kDistortionParam_Delay: AudioUnitParameterID { get }

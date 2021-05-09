@@ -12,6 +12,8 @@ one-word-description:  tremolo
 
 description:  Table-lookup tremolo with linear interpolation
 
+post-setup: auBase.setWavetable(waveform.content)
+
 inputs:
 - source: {
   ak-variable: input,

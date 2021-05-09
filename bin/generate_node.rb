@@ -99,9 +99,7 @@ FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 ################
 # AKNode.swift #
 ################
-audio_unit_setup_partial = new_partial("audio_unit_setup")
 parameters_partial       = new_partial("parameters")
-internal_au_partial      = new_partial("internal_au")
 
 File.open("templates/AKNode.swift.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
