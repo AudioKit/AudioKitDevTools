@@ -11,6 +11,14 @@ one-word-description: Bar
 description: |
   Physical model approximating the sound of a struck metal bar
 
+control-block: |2
+      /// Trigger the sound with current parameters
+      ///
+      public func trigger() {
+          start()
+      }
+
+
 parameters:
 - bcL: {
   ak-variable: leftBoundaryCondition,

@@ -15,7 +15,6 @@ control-block: |2
       ///
       public func trigger() {
           start()
-          internalAU?.trigger()
       }
 
 description: |

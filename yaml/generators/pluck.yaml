@@ -43,9 +43,9 @@ constants:
 control-block: |2
       /// Trigger the sound with current parameters
       ///
-      open func trigger() {
-          istart()
-          internalAU?.trigger()
+      public func trigger() {
+          start()
+          auBase.trigger()
       }
 
       /// Trigger the sound with a set of parameters
@@ -54,7 +54,7 @@ control-block: |2
       ///   - frequency: Frequency in Hz
       ///   - amplitude: Volume
       ///
-      open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
+      public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
           self.frequency = frequency
           self.amplitude = amplitude
           trigger()
