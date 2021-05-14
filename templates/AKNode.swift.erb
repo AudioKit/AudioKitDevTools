@@ -9,8 +9,12 @@ public class <%= node %>: Node {
 
 <% if inputs.count > 0 -%>
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
-    public var avAudioNode = instantiate2(effect: "<%= four_letter_code %>")
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "<%= four_letter_code %>")
 <% end -%>
 
     // MARK: - Parameters
