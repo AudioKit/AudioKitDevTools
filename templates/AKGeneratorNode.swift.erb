@@ -8,7 +8,7 @@ import CAudioKit
 public class <%= node %>: Node {
 
     public var connections: [Node] { [] }
-    public var avAudioNode = instantiate2(instrument: "<%= four_letter_code %>")
+    public var avAudioNode = instantiate(instrument: "<%= four_letter_code %>")
 
 <% tables.each do |table| -%>
 <% table.each do |sp_var, data| -%>
