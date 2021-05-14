@@ -79,7 +79,7 @@ public:
 <% end -%>
     }
 
-    void process2(FrameRange range) {
+    void process2(FrameRange range) override {
         for (int i : range) {
 
 <% (parameters + constant_parameters).each do |sp_parameter| -%>
