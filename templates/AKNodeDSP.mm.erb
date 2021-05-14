@@ -1,12 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AudioKit.h"
+#include "SoundpipeDSPBase.h"
+#include "ParameterRamper.h"
 #include "soundpipe.h"
 <% if tables.count > 0 -%>
 #include <vector>
 <% end -%>
-
-#include "DebugDSP.h"
 
 enum <%= node %>Parameter : AUParameterAddress {
 <% parameters.each do |sp_parameter| -%>
@@ -16,7 +15,7 @@ enum <%= node %>Parameter : AUParameterAddress {
 <% end -%>
 };
 
-class <%= node %>DSP : public AKSoundpipeDSPBase {
+class <%= node %>DSP : public SoundpipeDSPBase {
 private:
 <% if inputCount == 2 -%>
     sp_<%= sp_module %> *<%= sp_module %>;
@@ -100,7 +99,6 @@ public:
 
             float &leftOut = outputSample(0, i);
             float &rightOut = outputSample(1, i);
-
 <% if inputCount == 2 -%>            
             sp_<%= sp_module %>_compute(sp, <%= sp_module %>, &leftIn, &rightIn, leftOut, rightOut);
 <% else %>
@@ -111,7 +109,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(<%= node %>DSP)
+AK_REGISTER_DSP(<%= node %>DSP, "<%= four_letter_code %>")
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 AK_REGISTER_PARAMETER(<%= node %>Parameter<%= data["ak-variable"].camelcase %>)
