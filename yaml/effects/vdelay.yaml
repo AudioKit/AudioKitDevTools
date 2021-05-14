@@ -15,7 +15,7 @@ one-word-description: delay
 description:
   A delay line with cubic interpolation.
 
-post-setup: akVariableDelaySetMaximumTime(auBase.dsp, maximumTime)
+post-setup: akVariableDelaySetMaximumTime(au.dsp, maximumTime)
 
 inputs:
 - source: {
