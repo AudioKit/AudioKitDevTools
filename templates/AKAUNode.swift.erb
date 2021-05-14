@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's <%= au_name %> Audio Unit
 ///
-open class <%= au_name %>: Node {
+public class <%= au_name %>: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_<%= real_au_name %>)
 
