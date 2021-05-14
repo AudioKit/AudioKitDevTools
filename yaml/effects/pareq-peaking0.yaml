@@ -50,10 +50,4 @@ parameters:
   maximum: 2.0
 }
 
-constant-parameters:
-- mode: {
-  ak-variable: mode,
-  comment: "EQ mode. 0 = peak, 1 = low shelving, 2 = high shelving",
-  default: 0
-}
 
