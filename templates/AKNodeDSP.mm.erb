@@ -42,8 +42,8 @@ public:
 <% end -%>
     }
 
-    void init(int channelCount, double sampleRate) {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        SoundpipeDSPBase::init(channelCount, sampleRate);
 <% if inputCount == 2 -%>
         sp_<%= sp_module %>_create(&<%= sp_module %>);
         sp_<%= sp_module %>_init(sp, <%= sp_module %>);
@@ -55,8 +55,8 @@ public:
 <% end -%>
     }
 
-    void deinit() {
-        AKSoundpipeDSPBase::deinit();
+    void deinit() override {
+        SoundpipeDSPBase::deinit();
 <% if inputCount == 2 -%>
         sp_<%= sp_module %>_destroy(&<%= sp_module %>);
 <% else -%>
@@ -68,8 +68,8 @@ public:
 <% end -%>
     }
 
-    void reset() {
-        AKSoundpipeDSPBase::reset();
+    void reset() override {
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
 <% if inputCount == 2 -%>
         sp_<%= sp_module %>_init(sp, <%= sp_module %>);
