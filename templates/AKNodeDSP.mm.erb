@@ -100,7 +100,7 @@ public:
             float &leftOut = outputSample(0, i);
             float &rightOut = outputSample(1, i);
 <% if inputCount == 2 -%>            
-            sp_<%= sp_module %>_compute(sp, <%= sp_module %>, &leftIn, &rightIn, leftOut, rightOut);
+            sp_<%= sp_module %>_compute(sp, <%= sp_module %>, &leftIn, &rightIn, &leftOut, &rightOut);
 <% else %>
             sp_<%= sp_module %>_compute(sp, <%= sp_module %>0, &leftIn, &leftOut);
             sp_<%= sp_module %>_compute(sp, <%= sp_module %>1, &rightIn, &rightOut);
