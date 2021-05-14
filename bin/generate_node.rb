@@ -92,9 +92,12 @@ end
 # File Output #
 ###############
 
+dsp_output_folder = "../AudioKit/Sources/CAudioKit/Nodes/#{output_folder}"
+
 # Set up the output folder relative to the current directory and create it if necessary
 output_folder = "../AudioKit/Sources/AudioKit/Nodes/#{output_folder}/"
 FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
+
 
 ################
 # AKNode.swift #
@@ -111,9 +114,9 @@ File.open("templates/AKNode.swift.erb") { |template|
 # AKNodeDSP.mm #
 ################
 
-# File.open("templates/AKNodeDSP.mm.erb") { |template|
-# 	erb = ERB.new( template.read, nil, '-' )
-# 	File.open("#{output_folder}/#{node}DSP.mm", 'w+') {|f| f.write(erb.result) }
-# 	# puts erb.result
-# }
+File.open("templates/AKNodeDSP.mm.erb") { |template|
+	erb = ERB.new( template.read, nil, '-' )
+	File.open("#{dsp_output_folder}/#{node}DSP.mm", 'w+') {|f| f.write(erb.result) }
+	# puts erb.result
+}
 
