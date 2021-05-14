@@ -12,7 +12,7 @@ one-word-description:  auto panner
 
 description:  Table-lookup panning with linear interpolation
 
-post-setup: auBase.setWavetable(waveform.content)
+post-setup: au.setWavetable(waveform.content)
 
 inputs:
 - source: {
